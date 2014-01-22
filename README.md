@@ -1,0 +1,1 @@
+MSSP (MapleShark Scripts Project) is a community project; a collection of MapleShark Scripts
