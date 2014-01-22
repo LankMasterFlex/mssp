@@ -1,0 +1,235 @@
+function DecodeCharacter() {
+	using (ScriptAPI) {
+		DecodeCharacterStatistics();
+		DecodeCharacterAppearance();
+		
+		AddBool("View All Characters");
+
+		ranking = AddBool("Ranked");
+		
+		if (ranking) {
+			AddInt("Ranking 1");
+			AddInt("Ranking 2");
+			AddInt("Ranking 3");
+			AddInt("Ranking 4");
+		}
+	}
+}
+
+function DecodeCharacterStatistics() {
+	using (ScriptAPI) {
+		StartNode("Character Information");
+
+		AddInt("ID");
+		AddPaddedString("Name", 13);
+		AddByte("Gender");
+		AddByte("Skin ID");
+		AddInt("Face ID");
+		AddInt("Hair ID");
+		
+		AddLong("Pet 1's Unique ID");
+		AddLong("Pet 2's Unique ID");
+		AddLong("Pet 3's Unique ID");
+		
+		AddByte("Level");
+		job = AddShort("Job ID");
+		AddShort("Strength");
+		AddShort("Dexterity");
+		AddShort("Intelligence");
+		AddShort("Luck");
+		AddShort("Current HP");
+		AddShort("Max HP");
+		AddShort("Current MP");
+		AddShort("Max MP");
+		AddShort("Available AP");
+
+		/*
+		if (IsSeperatedSP(job)) {
+			count = AddByte("SP Count");
+			
+			for (i =0; i<count; i++) {
+				AddByte("SP Key");
+				AddByte("SP Value");
+			}
+		} else
+			AddShort("Available SP");
+		*/
+
+		a1 = job;
+       		adventurer = a1 % 1000 / 100;
+        	if (a1 / 100 == 27)
+            		adventurer = 2;
+        	if (a1 / 100 == 36)
+            		adventurer = 4;
+
+		if (
+                	a1 / 1000 == 1 && (adventurer == 5 || adventurer == 3 || adventurer == 1 || adventurer == 0) ||
+                	a1 / 1000 == 3 ||
+                
+                    	a1 / 100 == 22 || a1 == 2001 || 
+                    	a1 / 100 == 23 || a1 == 2002 || 
+                    	a1 / 100 == 24 || a1 == 2003 || 
+                    	a1 / 100 == 51 || a1 == 5000 ||
+                    	a1 / 100 == 27 || a1 == 2004 ||
+                    	a1 / 100 == 61 || a1 == 6000 ||
+                    	a1 / 100 == 65 || a1 == 6001 ||
+                    	a1 / 10 == 57 || a1 == 508 ||
+		            a1 / 1000 == 4 ) {
+			l = AddByte("SPS");
+			for (j = 0; j < l; j++) {
+				AddByte("VAL1");
+				AddInt("VAL2");
+			}
+		}
+		else {
+	    	AddShort("SP");
+		}
+		
+		AddLong("Experience");
+		AddInt("Fame");
+		AddInt("Gachapon Experience");
+		AddInt("Migration Data");
+		AddInt("Map ID");
+		AddByte("Initial Spawn Point");
+		AddInt("");
+		AddShort("Job Category");
+
+		if (IsDemonSlayer(job) || IsXenon(job) || IsDemonAvenger(job))
+			AddInt("Face Marking ID");
+
+		AddByte("Fatigue");
+		AddInt("Current Date");
+		
+		for (i=0; i<6; i++)
+			AddInt("Trait " + (i + 1) + "'s Value");
+		
+		for (i=0; i<6; i++)
+			AddShort("Trait " + (i + 1) + "'s Today's Value");
+		
+		AddByte("");
+		AddLong("");
+		AddInt("Battle Experience");
+		AddByte("Battle Rank");
+		AddInt("Battle Points");
+
+		AddByte("");
+		AddByte("");
+		AddInt("");
+
+		AddByte("Job ID");
+		AddLong("");
+		AddInt("Reward ID");
+		AddBool("Reward Existing");
+	
+		for (i=0; i<9; i++) {
+			AddInt("Part Time Job");
+			AddByte("Part Time Job");
+			AddInt("Part Time Job");
+		}
+
+		EndNode(false);
+	}
+}
+
+function DecodeCharacterAppearance() {
+	using (ScriptAPI) {
+		StartNode("Character Appearance");
+		
+		AddByte("Gender");
+		AddByte("Skin ID");
+		AddInt("Face ID");
+		job = AddInt("Job ID");
+		AddBool("Slot 1");
+		AddInt("Hair ID");
+		
+		StartNode("Visible Equips Layer");
+		
+		for (i = 1; i != 0xFF; i++) {
+			val = AddByte("Slot " + i);
+			
+			if (val == 0xFF)
+				break;
+
+			AddInt("Item " + i + "'s ID");
+		}
+
+		EndNode(false);
+
+		StartNode("Hidden Equips Layer");
+		
+		for (i = 1; i != 0xFF; i++) {
+			val = AddByte("Slot " + i);
+			
+			if (val == 0xFF)
+				break;
+
+			AddInt("Item " + i + "'s ID");
+		}
+
+		EndNode(false);
+
+		StartNode("Totems Equips Layer");
+		
+		for (i = 1; i != 0xFF; i++) {
+			val = AddByte("Slot " + i);
+			
+			if (val == 0xFF)
+				break;
+
+			AddInt("Item " + i + "'s ID");
+		}
+
+		EndNode(false);
+		
+		AddInt("Cash Weapon ID");
+		AddInt("Weapon ID");
+		AddInt("Shield ID");
+		AddBool("Mercedes");
+
+		for (i=0; i<3; i++)
+			AddInt("Pet " + i + "'s ID");
+		
+		if (IsDemonSlayer(job) || IsDemonAvenger(job) || IsXenon(job))
+			AddInt("Face Marking ID");
+		
+		if (IsZero(job))
+			AddBool("Beta");
+
+		EndNode(false);
+	}
+}
+
+function IsSeperatedSP(job) {
+	if (IsKOC(job))
+		return false;
+	else if (IsAran(job))
+		return false;
+	else if (job == 900 || job == 910 || job = 800)
+		return false;
+	else
+		return true;
+}
+
+function IsKOC(job) {
+	return job >= 1000 && job < 2000;
+}
+
+function IsAran(job) {
+	return job >= 2000 && job <= 2112 && job != 2001 && job != 2002 && job != 2003 && job != 2004;
+}
+
+function IsDemonSlayer(job) {
+	return job == 30001 || (job >= 3100 && job <= 3112 && job != 3101);
+}
+
+function IsXenon(job) {
+	return job == 3002 || (job >= 3600 && job <= 3612);
+}
+
+function IsDemonAvenger(job) {
+	return job == 3001 || job == 3101 || (job >= 3120 && job <= 3122);
+}
+
+function IsZero(job) {
+	return job == 10000 || (job >= 10100 && job <= 10112);
+}

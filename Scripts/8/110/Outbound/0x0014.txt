@@ -1,0 +1,6 @@
+using (ScriptAPI) {
+	AddByte("Locale");
+	v = AddShort("Version");
+	sv = AddShort("Subversion");
+	AddComment("MapleStory V" + v + "." + sv);
+}

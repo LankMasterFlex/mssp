@@ -1,0 +1,32 @@
+using (ScriptAPI) {
+	AddInt("Random crap");
+	AddInt("Ticks");
+	type = AddByte("Type");
+	AddByte("Element");
+	AddInt("Damage");
+	AddByte("0");
+	AddByte("Unk");
+	
+	if (type != -1) {
+		AddInt("MobID");
+		AddInt("MobMapID");
+		AddByte("Hit Direction");
+		AddInt("Reduction?");
+		derp = AddInt("Lol I don't even know");
+		AddByte("?");
+		AddByte("?");
+		if (derp > 0) {
+			AddByte("Physical");
+			AddInt("MobMapId thing");
+			AddByte("Status");
+			AddInt("Mob pos");
+			AddInt("PlayerPos");
+		}
+	}
+	else {
+		AddByte("Level");
+		AddShort("Disease");
+	}
+	
+	AddByte("Omg");
+}

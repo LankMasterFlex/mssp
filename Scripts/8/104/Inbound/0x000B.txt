@@ -1,0 +1,71 @@
+using (ScriptAPI) {
+	AddByte("?");
+	AddByte("?");
+	AddInt("charid");
+	AddPaddedString("charname", 13);
+	AddByte("gender");
+	AddByte("skin");
+	AddInt("face");
+	AddInt("hair");
+	AddLong("pet1");
+	AddLong("pet2");
+	AddLong("pet3");
+	AddByte("level");
+	AddShort("Job");
+	AddShort("Str");
+	AddShort("Dex");
+	AddShort("Int");
+	AddShort("Luk");
+	AddInt("HP");
+	AddInt("MaxHP");
+	AddInt("MP");
+	AddInt("MaxMP");
+	AddShort("AP");
+	AddShort("SP");
+	AddInt("Exp");
+	AddInt("Fame");
+	AddInt("GachaEXP");
+	AddInt("MapID");
+	AddByte("Mappos");
+	AddInt("Unk");
+	AddByte("Buddies");
+	
+	AddShort("??");
+	AddInt("DateTime");
+	AddLong("pet3");
+	AddLong("pet3");
+	AddInt("pet3");
+	AddLong("pet3");
+	AddLong("pet3");
+	AddLong("pet3");
+	
+	AddInt("pet1");
+	AddShort("pet1");
+	
+	AddByte("gender");
+	AddByte("skin");
+	AddInt("face");
+	AddInt("100?");
+	AddByte("pet1");
+	AddInt("hair");
+	StartNode("se");
+	while (true) {
+		slot = AddByte("Slot");
+		if (slot == 0xFF) break;
+		AddInt("ItemID");
+	}
+    EndNode(false);
+	StartNode("he");
+	while (true) {
+		slot = AddByte("Slot");
+		if (slot == 0xFF) break;
+		AddInt("ItemID");
+	}
+    EndNode(false);
+
+	AddInt("Special?");
+	AddInt("PetID?");
+	AddInt("PetID?");
+	AddInt("PetID?");
+	AddByte("?");
+}

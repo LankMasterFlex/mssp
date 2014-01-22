@@ -1,0 +1,25 @@
+using (ScriptAPI) {
+	AddByte("status");
+	characters = AddByte("Characters");
+	StartNode("CharList");
+	for (i = 1; i <= characters; i++) {
+		StartNode("Char " + i);
+        LoadChar();
+        DecodeAvatar();    
+		AddByte("0? - Has something to do with PIC?");
+		
+		if (AddByte("Ranked?") == 1) {
+			AddInt("World Rank");
+			AddInt("Change");
+			AddInt("Job Rank");
+			AddInt("Change");
+		}
+		EndNode(false);
+	}
+	EndNode(true);
+	
+	AddByte("PIC");
+	AddByte("?");
+	AddInt("Character Slots");
+	AddInt("Character Slots Extra");
+}

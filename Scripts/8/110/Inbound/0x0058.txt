@@ -1,0 +1,9 @@
+using (ScriptAPI) {
+	b = AddByte("Type");
+	if (b == 0x0D) {
+		AddString("Name");
+		AddLong("Unk");
+		AddString("Gachapon name");
+	    DecodeItem();
+	}
+}

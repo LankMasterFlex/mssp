@@ -1,0 +1,22 @@
+using (ScriptAPI) {
+	AddInt("Channel");
+	AddByte("Portals taken");
+	connecting = AddBool("Is connecting");
+	AddShort("Messages, 0");
+	if (connecting) {
+		AddInt("Seed 1");
+		AddInt("Seed 2");
+		AddInt("Seed 3");
+	    getCharacterData();
+	}
+    else {
+	    AddByte("unk");
+		AddInt("Mapid");
+	    AddByte("mappos");
+	    AddShort("HP");
+	    AddByte("unk");
+	}
+	AddLong("Server Time");
+
+
+}

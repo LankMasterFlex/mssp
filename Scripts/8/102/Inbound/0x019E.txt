@@ -1,0 +1,16 @@
+using (ScriptAPI) {
+	AddInt("ObjectID");
+	AddInt("ItemID");
+    AddShort("PosX");
+    AddShort("PosY");
+    AddShort("PosFH");
+    AddString("Owner Name");
+	
+	ty = AddByte("Type");
+	AddInt("Serial");
+	AddString("ShopTitle");
+	AddByte("Spectators");
+	AddByte("MinPlayers");
+	AddByte("MaxPlayers");
+	AddComment("Type: " + ty);
+}

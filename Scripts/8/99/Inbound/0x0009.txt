@@ -1,0 +1,13 @@
+using (ScriptAPI) {
+	a = AddBool("intro");
+	if (a) {
+		
+	}
+    else {
+		AddByte("World ID");
+		i = AddByte("Characters");
+		AddComment("(" + i + ")");
+	}
+
+
+}

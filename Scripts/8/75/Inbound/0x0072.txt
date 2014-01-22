@@ -1,0 +1,20 @@
+using (ScriptAPI) {
+	AddInt("Channel");
+	AddByte("Portals taken");
+	cd = AddByte("Connectdata");
+	AddShort("---");
+	if (cd == 0x01) {
+		AddInt("Seed 1");
+		AddInt("Seed 2");
+		AddInt("Seed 3");
+	    getCharacterData();
+	}
+    else {
+		AddInt("Mapid");
+		AddByte("Mappos");
+		AddShort("HP");
+		AddByte("Unknown");
+		
+    }
+    AddLong("Server time");
+}

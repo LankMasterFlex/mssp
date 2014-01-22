@@ -1,0 +1,4 @@
+using (ScriptAPI) {
+	AddString("Name");
+	AddBool("Name Taken");
+}

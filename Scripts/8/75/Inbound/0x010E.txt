@@ -1,0 +1,46 @@
+using (ScriptAPI) {
+	AddByte("4");
+	npc = AddInt("NPC ID");
+	sort = AddByte("Type");
+	scriptText = AddString("Text");
+	sortThing1 = false;
+	sortThing2 = false;
+	sortString = "";
+	if (sort == 0) {
+			sortString = "send"; 
+			sortThing1 = AddBool("Back button");
+			sortThing2 = AddBool("Next button");
+			if (sortThing1) {
+				sortString += "Back";
+			    if (sortThing2)
+			        sortString += "Next";
+			    else
+			        sortString += "Ok";
+			}
+			else if (!sortThing1) {
+			    if (sortThing2)
+			        sortString += "Next";
+			    else
+			        sortString += "Ok";
+			}
+			sortString += "();";			
+	}
+	else if (sort == 1) {
+		sortString = "sendYesNo();";
+	}
+	else if (sort == 2) {
+		sortString = "askNumber();";
+	}
+	else if (sort == 3) {
+		sortString = "askChoice();";
+	}
+	else if (sort == 4) {
+		sortString = "askText();";
+	}
+	else {
+        AddComment("Wat... New type: " + sort);
+	}
+	scriptText2 = "AddText(\"" + scriptText + "\");";
+	Write("NPC_" + npc + ".lua", scriptText2);
+	Write("NPC_" + npc + ".lua", sortString);
+}

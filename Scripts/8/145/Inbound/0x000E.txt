@@ -1,0 +1,9 @@
+using (ScriptAPI) {
+	AddInt("Character ID");
+	mode = AddByte("Mode");
+	
+	if (mode == 0)
+	    AddComment("Success");
+   	else if (mode == 20)
+	    AddComment("Incorrect Pic");
+}

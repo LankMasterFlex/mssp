@@ -1,0 +1,13 @@
+using (ScriptAPI) {
+	b1 = AddByte("..");
+	b2 = AddByte("..");
+	b3 = AddByte("..");
+	if (b2 == 1 && b3 == 0) {
+		b4 = AddByte("...");
+		if (b4 == 0) {
+			inv = AddByte("Inventory");
+			slot = AddShort("Slot");
+			DecodeItem();
+		}
+	}
+}

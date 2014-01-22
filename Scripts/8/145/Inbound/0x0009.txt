@@ -1,0 +1,33 @@
+using (ScriptAPI) {
+	worldID = AddByte("World ID");
+	if (worldID == 0xFF)
+	{
+		AddBool("");
+	} else { 
+	    AddString("World Name");
+	    AddByte("World Flag");
+	    AddString("World Message");
+	    AddShort("Rate Modifier");
+	    AddShort("Rate Modifier");
+	    AddByte("");
+	    channels = AddByte("Channels Count");
+	    
+	    StartNode("Channels");
+		
+	        for (i=0; i<channels; i++) {
+			    StartNode("Channel " + i);
+			
+                AddString("Channel Formal Name");
+	        	AddInt("Channel Load");
+		        AddByte("World ID");
+	        	AddShort("Channel Formal ID");
+
+			    EndNode(false);
+			}
+    
+		EndNode(false);
+		
+        AddShort("");
+	    AddShort("");		
+	}
+}

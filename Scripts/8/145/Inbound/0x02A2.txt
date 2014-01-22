@@ -1,0 +1,12 @@
+using (ScriptAPI) {
+	AddInt("Object ID");
+	AddInt("Npc ID");
+	AddShort("X Position");
+	AddShort("Y Position");
+	AddBool("Faces Left");
+	AddUShort("Foothold");
+	AddUShort("RX0");
+	AddUShort("RX1");
+	AddBool("Show");
+	AddInt("Unknown");
+}

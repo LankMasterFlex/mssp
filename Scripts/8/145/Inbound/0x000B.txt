@@ -1,0 +1,19 @@
+using (ScriptAPI) {
+    status = AddShort("Status");
+
+    if (status == 0)
+        AddComment("Valid");
+    else
+        AddComment("Invalid");
+
+    if (status == 0) {
+        AddInt("IP Address");
+		AddShort("Port");
+		AddInt("Character ID");
+		AddInt("");
+		AddInt("");
+		AddByte("");
+		AddInt("");
+		AddShort("");
+	}
+}

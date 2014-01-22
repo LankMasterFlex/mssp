@@ -1,0 +1,15 @@
+using (ScriptAPI) {
+	AddByte("");
+	AddInt("Account ID");
+	AddField("", 5);
+	AddInt("");
+	AddString("Account Name");
+	AddLong("");
+	AddField("", 3);
+	AddInt("Random");
+	AddInt("Random");
+	AddInt("Unknown");
+	AddInt("Random");
+	AddInt("Random");
+	AddBool("Unknown");
+}

@@ -1,0 +1,15 @@
+using (ScriptAPI) {
+	type = AddByte("type");
+	if (type == 1) {
+		id = AddShort("Quest ID");
+		AddComment("> " + id);
+		mode = AddByte("mode");
+		
+		if (mode == 1) {
+			AddString("Data");
+		}
+	    else if (mode == 2) {
+			AddLong("Completion time");
+		}
+	}
+}

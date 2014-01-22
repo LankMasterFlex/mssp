@@ -1,0 +1,10 @@
+using (ScriptAPI) {
+	amnt = AddByte("Count");
+	for (i = 1; i <= amnt; i++) {
+		AddString("Name");
+		AddByte("Shout");
+		AddInt("Skillid 1");
+		AddInt("Skillid 2");
+		AddInt("Skillid 3");
+	}
+}

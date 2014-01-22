@@ -1,0 +1,14 @@
+using (ScriptAPI) {
+	for (i = AddInt("amount"); i > 0; i--) {
+		AddInt("Unique ID");
+		AddInt("Mob ID");
+		AddPaddedString("Name", 13);
+		AddByte("Unk");
+		AddShort("Unk");
+		AddInt("Unkk");
+		AddLong("Date1");
+		AddLong("Date2");
+		AddLong("Date3");
+		AddShort("Amount of orbs?");
+	}
+}

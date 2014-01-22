@@ -1,0 +1,338 @@
+using (ScriptAPI) {
+	StartNode("Opts");
+	opts = AddShort("Options");
+	for (i = 1; i <= opts; i++) {
+		StartNode("Option " + i);
+		AddInt("Key");
+		AddInt("Value");
+		EndNode(false);
+	}
+	EndNode(false);
+	
+	AddInt("Channel");
+	AddByte("?");
+	AddInt("?x4");
+	AddByte("Portals");
+	
+	AddInt("?x4");
+	
+	isConnecting = AddByte("Is Connecting");
+	
+    StartNode("Top Messages");
+	msgs = AddShort("Messages");
+	if (msgs > 0) {
+		AddString("Title");
+		for (i = 1; i <= msgs; i++) {
+    		AddString("Msgs: " + i);
+		}	
+	}
+	EndNode(false);
+
+	if (isConnecting == 0x00) {
+		
+		
+	}
+	else {
+		StartNode("RNG");
+		AddInt("Value 1");
+		AddInt("Value 2");
+		AddInt("Value 3");
+		EndNode(false);
+		
+		AddLong("Flag");
+		
+	    AddByte("?");
+		
+		StartNode("loop");
+		amount = AddByte("UnknownLoop");
+		for (i = 0; i < amount; i++)
+		    AddInt("Value " + i);
+		EndNode(false);
+		StartNode("loop");
+		amount = AddInt("UnknownLoop");
+		for (i = 0; i < amount; i++) {
+		    AddInt("Value " + i);
+		    AddLong("Value " + i);
+		}
+		EndNode(false);
+	    AddByte("?");
+		
+		if (AddByte("???") == 0x01) {
+			StartNode("Data");
+			amount = AddInt("Amount");
+			for (i = 0; i < amount; i++)
+			    AddLong("Value " + amount);
+			
+			amount = AddInt("Amount");
+			for (i = 0; i < amount; i++)
+			    AddLong("Value " + amount);
+			
+			EndNode(false);
+		}
+	
+        LoadChar();
+		
+		AddByte("?");
+		if (AddByte("HasBlessing") == 0x01)
+		    AddString("Blesser");
+		if (AddByte("HasBlessing") == 0x01)
+		    AddString("Blesser");
+		if (AddByte("HasBlessing") == 0x01)
+		    AddString("Blesser");
+		
+		StartNode("Inventory");
+		
+		AddInt("Money");
+		amount = AddInt("???");
+		for (i = 0; i < amount; i++) {
+			AddInt("V1 " + i);
+			AddInt("V2 " + i);
+			AddInt("V3 " + i);
+			AddInt("V4 " + i);
+		}
+	
+	    for (i = 1; i <= 5; i++)
+		    AddByte("Max Slots " + i);
+		
+		AddLong("Something?");
+		
+		for (i = 1; i <= 7; i++) {
+	    	StartNode("Inv " + i);
+	    	while (true) {
+	    	    slot = AddShort("Slot ID");
+	    	    if (slot == 0x00) break;
+	    		StartNode("? " + slot);
+	    		DecodeItem();
+	    		EndNode(false);
+	    	}
+	    	EndNode(false);
+		}
+		
+		
+		for (i = 2; i <= 5; i++) {
+	    	StartNode("Inv " + i);
+	    	while (true) {
+	    	    slot = AddByte("Slot ID");
+	    	    if (slot == 0x00) break;
+	    		StartNode("? " + slot);
+	    		DecodeItem();
+	    		EndNode(false);
+	    	}
+	    	EndNode(false);
+		}
+		EndNode(false);
+		
+		for (i = 1; i > 0 ; i++) {
+			val = AddInt("???");
+			if (val == -1) break;
+		}
+		
+		amount = AddInt("Amount");
+		for (i = 1; i <= amount; i++) {
+			AddInt("1 --");
+			AddLong("-- 2");
+		}
+		
+		amount = AddInt("Amount");
+		for (i = 1; i <= amount; i++) {
+			AddLong("1 --");
+			AddLong("-- 2");
+		}
+	
+	    AddByte("Looping...");
+		old = AddByte("Skills (USE OLD)");
+		if (old == 0x01) {
+			StartNode("Skills");
+			amount = AddShort("Amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+				AddInt("ID");
+				AddInt("Level");
+				AddLong("Expiration");
+				EndNode(false);
+			}
+			EndNode(false);
+		}
+	    
+		AddShort("Cooldowns");
+	    
+		StartNode("quests");
+		val1 = AddByte("DUNNO");
+	    amount = AddShort("Quests");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		
+		amount = AddShort("?");
+		for (i = 1; i <= amount; i++) {
+			StartNode("??? " + i);
+			AddString("Val1");
+			AddString("Val2");
+			EndNode(false);
+		}
+		
+		AddByte("val2");
+		
+		amount = AddShort("Done Quests");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Done " + i);
+			AddShort("ID");
+			AddLong("At");
+			EndNode(false);
+		}
+		
+		EndNode(false);
+		
+		AddShort("Match Records");
+		AddShort("Couple Records");
+		AddShort("Friend Records");
+		AddShort("Marriage Records");
+		
+		StartNode("Tele Rocks");
+		for (i = 1; i <= (5 + 10 + 13 + 13); i++)
+		    AddInt("Rock Location: " + i);
+		EndNode(false);
+		
+		StartNode("Monsterbook");
+		AddInt("Selected Char");
+		if (AddByte("Mode") == 0x00) {
+			amount = AddShort("cards");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Card " + i);
+				AddShort("ID");
+				AddByte("Level");
+				EndNode(false);
+			}
+		}
+		else {
+			AddShort("Unk");
+			size = AddShort("Size");
+			AddField("Cards", size);
+			size = AddShort("Size");
+			AddField("Levels", size);
+		}
+		
+		EndNode(false);
+		
+		AddInt("-1");
+		AddShort("?x2");
+		AddShort("?x2");
+		
+		StartNode("pquest");
+		amount = AddShort("?x2");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		AddShort("?x2");
+		AddShort("?x2");
+		AddShort("?x2");
+		
+		StartNode("????");
+		for (i = 1; i <= 20; i++) {
+			AddInt("UNK");
+		}
+		EndNode(false);
+		
+		AddByte("?");
+		AddShort(",");
+		AddShort(",");
+		AddShort(",");
+		AddInt(",");
+		
+	}
+	AddLong("Servertime");
+	AddInt("100?");
+	AddByte("Unk");
+	AddByte("1?");
+}
+
+function DecodeItem() {
+	using (ScriptAPI) {
+		type = AddByte("Type");
+		item = AddInt("Item ID");
+		if (AddByte("HasCashid") == 0x01) {
+			AddLong("CashID");
+		}
+		
+		AddLong("Expiration Time");
+		AddInt("-1 ?");
+		if (type == 0x01) {
+			AddByte("Slots");
+			AddByte("Scrolls");
+			AddShort("STR");
+			AddShort("DEX");
+			AddShort("INT");
+			AddShort("LUK");
+			AddShort("HP");
+			AddShort("MP");
+			AddShort("WATK");
+			AddShort("MATK");
+			AddShort("WDEF");
+			AddShort("MDEF");
+			AddShort("ACC");
+			AddShort("EVO");
+			AddShort("Hands");
+			AddShort("Speed");
+			AddShort("Jump");
+			AddString("Name");
+			
+			AddShort("Flags");
+			
+			AddByte("?");
+			AddByte("?");
+			AddInt("?x4");
+			AddInt("?x4");
+			AddInt("?x4");
+			AddShort("?x2");
+			AddByte("?");
+			AddByte("?");
+			AddShort("?x2");
+			AddShort("?x2");
+			AddShort("?x2");
+			AddShort("?x2");
+			AddShort("?x2");
+			AddShort("?x2");
+			AddShort("?x2");
+			AddShort("?x2");
+			AddShort("?x2");
+			AddShort("?x2");
+			
+			AddLong("?x8");
+			
+			AddLong("?x8");
+			
+			AddInt("?x4");
+		}
+	    else if (type == 0x02) {
+			AddShort("Amount");
+			AddString("Name");
+			AddShort("Flags");
+			item = item / 10000;
+			if (item == 233 || item == 207)    
+    			AddLong("?");
+
+		}
+	    else if (type == 0x03) {
+			AddPaddedString("Petname", 13);
+			AddByte("Level");
+			AddShort("Closeness");
+			AddByte("Fullness");
+			AddLong("Time");
+			AddShort("New!?");
+			AddShort("New!?");
+			AddInt("New!?");
+			AddShort("New!?");
+			AddByte("-.-");
+			AddInt("New!?!?!?!");
+			AddInt("New!?!?!!?");
+		}
+	}
+}

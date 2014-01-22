@@ -1,0 +1,4 @@
+using (ScriptAPI) {
+	AddString("Username (Official: Password)");
+	AddString("Password (Official: Cookie)");
+}

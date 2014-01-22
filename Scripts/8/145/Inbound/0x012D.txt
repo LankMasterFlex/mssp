@@ -1,0 +1,16 @@
+using (ScriptAPI) {
+	count = AddByte("Backgrounds Count");
+	
+	StartNode("Backgrounds");
+	
+	for (i=0; i<count; i++) {
+		StartNode("Background " + i);
+		
+	    AddString("Background Name");
+	    AddBool("Randomize");
+		
+		EndNode(false);
+	}
+
+	EndNode(false);
+}

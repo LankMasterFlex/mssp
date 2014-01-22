@@ -1,0 +1,28 @@
+using (ScriptAPI) {
+    mode = AddByte("mode");
+	if (mode == 0x0D) {
+		guilds = AddInt("Guilds");
+		for (i = 1; i <= guilds; i++) {
+	        ReadGuild();
+		}
+	}
+    else if (mode == 0x0C) {
+		if (AddByte("Has alliance") == 1) {
+			AddInt("Alliance ID");
+			AddString("Alliance Name");
+			AddString("Rank 1");
+			AddString("Rank 2");
+			AddString("Rank 3");
+			AddString("Rank 4");
+			AddString("Rank 5");
+			
+			guilds = AddByte("Guilds");
+			for (i = 1; i <= guilds; i++) {
+		        AddInt("Guild ID " + i);
+			}
+            AddInt("Capacity");
+			AddString("Notice");
+		}
+	}
+
+}

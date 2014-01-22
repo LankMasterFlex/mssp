@@ -1,0 +1,19 @@
+using (ScriptAPI) {
+	b = AddByte("-");
+	AddShort("2");
+	AddInt("4");
+	if (b == 2) {
+		AddInt("-1");
+		AddInt("-1");
+	}
+    else if (b == 4 || b == 5) {
+		AddShort("?");
+		AddShort("?");
+	}
+    else {
+		AddInt("?");
+	}
+
+
+}
+

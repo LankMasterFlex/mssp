@@ -1,0 +1,132 @@
+function LoadChar() {
+using (ScriptAPI) {
+        StartNode("Char Info");
+		AddInt("Charid");
+		AddPaddedString("Charname", 13);
+		AddByte("Gender");
+		AddByte("Skin");
+		AddInt("Face");
+		AddInt("Hair");
+		AddLong("PetID 1");
+		AddLong("PetID 2");
+		AddLong("PetID 3");
+		AddByte("Level");
+		job = AddShort("Job");
+		AddShort("STR");
+		AddShort("DEX");
+		AddShort("INT");
+		AddShort("LUK");
+		AddInt("HP");
+		AddInt("MaxHP");
+		AddInt("MP");
+		AddInt("MaxMP");
+		AddShort("AP");
+		a1 = job;
+		if (a1 / 1000 == 3 || 
+                    a1 / 100 == 22 || a1 == 2001 || 
+                    a1 / 100 == 23 || a1 == 2002 || 
+                    a1 / 100 == 24 || a1 == 2003 || 
+                    a1 / 100 == 51 || a1 == 5000 ||
+                    a1 / 100 == 27 || a1 == 2004 ||
+                    a1 / 100 == 61 || a1 == 6000 ||
+                    a1 / 100 == 65 || a1 == 6001 ||
+                    a1 / 10 == 57 || a1 == 508) {
+			l = AddByte("SPS");
+			for (j = 0; j < l; j++) {
+				AddByte("VAL1");
+				AddByte("VAL2");
+			}
+		}
+		else {
+	    	AddShort("SP");
+		}
+		AddInt("EXP");
+		AddInt("Fame");
+		AddInt("Unk");
+		AddInt("MapID");
+		AddByte("MapPOS");
+		AddInt("UNK");
+		AddShort("UNK");
+	    if ( a1 / 100 == 31 || a1 == 3001) {
+		    AddInt("Something?");
+    	}
+		AddByte("UNK");
+		AddInt("YYYYMMDDmm"); // Year Month Day Minute
+		
+		AddLong("???"); // 2x4
+		AddLong("???"); // 2x4
+		AddLong("???"); // 2x4
+	    
+	    AddField("21 ", 21); // 12
+		
+		AddInt(".");
+		
+		AddByte("!");
+		AddInt("!!!!");
+		AddByte("!");
+		AddByte("!");
+		AddInt("!!!!");
+		AddByte("!");
+		AddInt("!!!!");
+		AddInt("!!!!");
+		AddInt("!!!!");
+		AddByte("!");
+	
+		for (j = 0; j < 6; j++) {
+			StartNode("Block " + j);
+			AddInt("4");
+			AddByte("1");
+			AddInt("4");
+			EndNode(false);
+		}
+		
+		AddLong("???");
+	    EndNode(false);
+	}
+}
+
+function DecodeAvatar() {
+    using (ScriptAPI) {
+		AddByte("Gender");
+		AddByte("Skin");
+		AddInt("Face");
+		a1 = AddInt("Job ID");
+	
+		AddByte("SLOT 1 LOL");
+		AddInt("Hair");
+        StartNode("Equips Hidden");
+		for (j = 1; j != 0xFF; j++) {
+		    val = AddByte("SLOT " + j);
+			if (val == 0xFF) break;
+		    AddInt("Item ID " + j);
+		}
+		EndNode(false);
+		
+        StartNode("Equips Shown");
+		for (j = 1; j != 0xFF; j++) {
+		    val = AddByte("SLOT " + j);
+			if (val == 0xFF) break;
+		    AddInt("Item ID " + j);
+		}
+		EndNode(false);
+		
+        StartNode("Equips DERP");
+		for (j = 1; j != 0xFF; j++) {
+		    val = AddByte("SLOT " + j);
+			if (val == 0xFF) break;
+		    AddInt("Item ID " + j);
+		}
+		EndNode(false);
+		
+		AddInt("Cash Equip");
+		AddInt("Cash Equip?");
+		AddInt("Cash Equip?2");
+		AddByte("0?");
+		AddInt("Pet1");
+		AddInt("Pet2");
+		AddInt("Pet3");
+	    if ( a1 / 100 == 31 || a1 == 3001) {
+		    AddInt("Demonslayer thingy");
+		}		
+	}	
+}

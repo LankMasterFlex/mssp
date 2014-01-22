@@ -1,0 +1,230 @@
+using (ScriptAPI) {
+	AddInt("Channel");
+	AddByte("Portals taken");
+	cnnt = AddByte("Unknown");
+	if (cnnt == 0x01) {
+		AddShort("Unknown, 0");
+		AddInt("Seed 1");
+		AddInt("Seed 2");
+		AddInt("Seed 3");
+		getCharacterData();
+	}
+	else {
+		
+	}
+	AddLong("Server Time");
+}
+
+function getInventory() {
+	using (ScriptAPI) {
+		StartNode("Inventory");
+		AddInt("Mesos");
+		AddByte("Equip Inventory slots");
+		AddByte("Use Inventory slots");
+		AddByte("Setup Inventory slots");
+		AddByte("Etc Inventory slots");
+		AddByte("Cash Inventory slots");
+		
+		AddLong("Unknown...");
+		
+		StartNode("Equip Inventory 1");
+		getInventoryData();
+		EndNode(false);
+		
+		StartNode("Equip Inventory 2");
+		getInventoryData();
+		EndNode(false);
+		
+		StartNode("Equip Inventory 3");
+		getInventoryData();
+		EndNode(false);
+		
+		StartNode("UseInventory");
+		getInventoryData();
+		EndNode(false);
+		StartNode("Setup Inventory");
+		getInventoryData();
+		EndNode(false);
+		StartNode("Etc Inventory");
+		getInventoryData();
+		EndNode(false);
+		StartNode("Cash Inventory");
+		getInventoryData();
+		EndNode(false);
+		EndNode(false);
+		
+	}
+}
+
+function getInventoryData() {
+	using (ScriptAPI) {
+		for (i = 1; i <= 128; i++) {
+			StartNode("Item " + i);
+			slot = AddByte("Slot");
+			if (slot > 0) {
+				type = AddByte("Type");
+				if (type == 0x01) {
+					AddComment("-- Equip item --");
+					AddInt("Itemid");
+					AddByte("Unknown, 0");
+					AddLong("Expiration");
+					
+					AddByte("Slots");
+					AddByte("Scrolls");
+					AddShort("Str");
+					AddShort("Dex");
+					AddShort("Int");
+					AddShort("Luk");
+					AddShort("HP");
+					AddShort("MP");
+					AddShort("W.Atk");
+					AddShort("M.Atk");
+					AddShort("W.Def");
+					AddShort("M.Def");
+					AddShort("Acc");
+					AddShort("Avo");
+					AddShort("Hands");
+					AddShort("Speed");
+					AddShort("Jump");
+					AddString("Owner");
+					AddShort("Flags");
+					AddByte("Unk, 0");
+					AddByte("Item Level?");
+					AddShort("Unk, 0");
+					AddShort("Item EXP?");
+					AddInt("Hammers");
+					AddLong("Unk, -1");
+					AddLong("Unk");
+					AddInt("Unk, -1");
+				}
+				else if (type == 0x02) {
+					AddComment("-- Non-Equip item --");
+					itemid = AddInt("Itemid");
+					AddByte("Unknown, 0");
+					AddLong("Expiration");
+					
+					AddShort("Amount");
+					AddString("Owner");
+					AddShort("Flags");
+					itemid = itemid / 10000;
+		            if (itemid == 207 || itemid == 233)
+    			    	AddLong("Rechargable thing");
+					
+				}
+				else if (type == 0x00) {
+					AddComment("-- Pet --");
+					AddInt("Itemid");
+					AddByte("Unknown, 0");
+					AddLong("Expiration");
+					
+				}
+				else {
+					AddComment("-- UNKNOWN TYPE --");
+					AddInt("Itemid");
+					AddByte("Unknown, 0");
+					AddLong("Expiration");
+					
+				}
+			}
+			else{
+                AddComment("End of items...");
+			}
+			EndNode(false);
+			if (slot == 0x00) break;
+		}
+	}
+}
+
+function getSkills() {
+    using (ScriptAPI) {
+		StartNode("Skills");
+		skills = AddShort("Skills");
+		for (i = 1; i <= skills; i++) {
+			StartNode("Skill " + i);
+			skillid = AddInt("ID");
+			AddInt("Level");
+			if ((skillid / 10000) % 10 == 2) {
+				AddInt("Max Level");
+			}
+			EndNode(false);
+		}
+		cooldowns = AddShort("Cooldowns");
+		for (i = 1; i <= cooldowns; i++) {
+			StartNode("Cooldown " + i);
+			skillid = AddInt("ID");
+			AddShort("Time");
+			EndNode(false);
+		}
+		EndNode(false);
+	}	
+}
+
+function getQuests() {
+    using (ScriptAPI) {
+		StartNode("Quests");
+		skills = AddShort("Active quests");
+		for (i = 1; i <= skills; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		skills = AddShort("Completed quests");
+		for (i = 1; i <= skills; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddLong("Time");
+			EndNode(false);
+		}
+		EndNode(false);
+	}	
+}
+
+function getRocks() {
+    using (ScriptAPI) {
+		StartNode("Rocks");
+		for (i = 1; i <= 15; i++) {
+    		AddInt("Map " + i);
+    	}
+        EndNode(false);
+	}
+}
+
+function getMonsterBook() {
+    using (ScriptAPI) {
+		StartNode("Monster Book");
+		AddInt("Cover");
+		AddByte("Unknown");
+		cards = AddShort("Cards");
+		StartNode("Monster Book Cards");
+		for (i = 1; i <= cards; i++) {
+			StartNode("Card " + i);
+    		AddShort("ID");
+    		AddByte("Level");
+            EndNode(false);
+    	}
+        EndNode(false);
+        EndNode(false);
+	}
+}
+
+function getPQuests() {
+    using (ScriptAPI) {
+		StartNode("Party Quests");
+		skills = AddShort("Active quests");
+		for (i = 1; i <= skills; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		skills = AddShort("Completed quests");
+		for (i = 1; i <= skills; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddLong("Time");
+			EndNode(false);
+		}
+		EndNode(false);
+	}	
+}

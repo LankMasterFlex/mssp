@@ -1,0 +1,7 @@
+using (ScriptAPI) {
+    mode = AddByte("mode");
+	if (mode == 0x20) {
+        if (AddByte("has guild") == 1)
+    		ReadGuild();
+	}
+}

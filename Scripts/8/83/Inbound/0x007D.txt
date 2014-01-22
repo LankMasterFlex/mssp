@@ -1,0 +1,14 @@
+using (ScriptAPI) {
+	AddByte("fail");
+	AddInt("Channel");
+	AddByte("Portals taken");
+	AddByte("Unknown");
+	AddShort("Unknown, 0");
+	AddInt("Seed 1");
+	AddInt("Seed 2");
+	AddInt("Seed 3");
+	AddLong("Flag");
+	AddByte("fail");
+    getCharacterData();
+	AddLong("Server Time");
+}

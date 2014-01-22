@@ -1,0 +1,7 @@
+using (ScriptAPI) {
+	AddInt("Mob Object ID");
+	AddByte("Control Status");
+	AddInt("Mob ID");
+	AddByte("Things");
+	AddField("Buff Flags", 32);
+}

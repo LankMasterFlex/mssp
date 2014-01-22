@@ -1,0 +1,437 @@
+using (ScriptAPI) {
+	StartNode("Opts");
+	opts = AddShort("Options");
+	for (i = 1; i <= opts; i++) {
+		StartNode("Option " + i);
+		AddInt("Key");
+		AddInt("Value");
+		EndNode(false);
+	}
+	EndNode(false);
+	
+	AddInt("Channel");
+	AddByte("?");
+	AddInt("?x4");
+	AddByte("Portals");
+	
+	AddInt("?x4");
+	
+	isConnecting = AddByte("Is Connecting");
+	
+    StartNode("Top Messages");
+	msgs = AddShort("Messages");
+	if (msgs > 0) {
+		AddString("Title");
+		for (i = 1; i <= msgs; i++) {
+    		AddString("Msgs: " + i);
+		}	
+	}
+	EndNode(false);
+
+	if (isConnecting == 0x00) {
+		
+		
+	}
+	else {
+		StartNode("RNG");
+		AddInt("Value 1");
+		AddInt("Value 2");
+		AddInt("Value 3");
+		EndNode(false);
+		
+		AddLong("Flag");
+		
+	    AddByte("?");
+		
+		StartNode("loop");
+		amount = AddByte("UnknownLoop");
+		for (i = 0; i < amount; i++)
+		    AddInt("Value " + i);
+		EndNode(false);
+		StartNode("loop");
+		amount = AddInt("UnknownLoop");
+		for (i = 0; i < amount; i++) {
+		    AddInt("Value " + i);
+		    AddLong("Value " + i);
+		}
+		EndNode(false);
+	    AddByte("?");
+		
+		if (AddByte("???") == 0x01) {
+			StartNode("Data");
+			amount = AddInt("Amount");
+			for (i = 0; i < amount; i++)
+			    AddLong("Value " + amount);
+			
+			amount = AddInt("Amount");
+			for (i = 0; i < amount; i++)
+			    AddLong("Value " + amount);
+			
+			EndNode(false);
+		}
+	
+        LoadChar();
+		
+		AddByte("?");
+		if (AddByte("HasBlessing") == 0x01)
+		    AddString("Blesser");
+		if (AddByte("HasBlessing") == 0x01)
+		    AddString("Blesser");
+		if (AddByte("HasBlessing") == 0x01)
+		    AddString("Blesser");
+		
+		StartNode("Inventory");
+		
+		AddInt("Money");
+		amount = AddInt("???");
+		for (i = 0; i < amount; i++) {
+			AddInt("V1 " + i);
+			AddInt("V2 " + i);
+			AddInt("V3 " + i);
+			AddInt("V4 " + i);
+		}
+	    
+		AddInt("unk");
+		
+	    for (i = 1; i <= 5; i++)
+		    AddByte("Max Slots " + i);
+		
+		AddLong("Something?");
+		
+		for (i = 1; i <= 8; i++) {
+	    	StartNode("Inv " + i);
+	    	while (true) {
+	    	    slot = AddShort("Slot ID");
+	    	    if (slot == 0x00) break;
+	    		StartNode("? " + slot);
+	    		DecodeItem();
+	    		EndNode(false);
+	    	}
+	    	EndNode(false);
+		}
+		
+		
+		for (i = 2; i <= 5; i++) {
+	    	StartNode("Inv " + i);
+	    	while (true) {
+	    	    slot = AddByte("Slot ID");
+	    	    if (slot == 0x00) break;
+	    		StartNode("? " + slot);
+	    		DecodeItem();
+	    		EndNode(false);
+	    	}
+	    	EndNode(false);
+		}
+		EndNode(false);
+		
+		for (i = 1; i > 0 ; i++) {
+			val = AddInt("Bag ID");
+			if (val == -1) break;
+			StartNode("Bag " + i);
+			
+			AddInt("Bag Item ID");
+			for (j = 0; j < 10; j++) {
+	    	    slot = AddInt("Slot ID");
+	    	    if (slot == -1) break;
+	    		StartNode("? " + slot);
+	    		DecodeItem();
+	    		EndNode(false);
+			}
+			EndNode(false);
+		}
+		
+		amount = AddInt("Amount");
+		for (i = 1; i <= amount; i++) {
+			AddInt("1 --");
+			AddLong("-- 2");
+		}
+		
+		amount = AddInt("Amount");
+		for (i = 1; i <= amount; i++) {
+			AddLong("1 --");
+			AddLong("-- 2");
+		}
+	
+	    AddByte("Looping...");
+		old = AddByte("Skills (USE OLD)");
+		if (old == 0x01) {
+			StartNode("Skills");
+			amount = AddShort("Amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+			    skillid = AddInt("ID");
+				AddInt("Level");
+				AddLong("Expiration");
+				if (is_skill_need_master_level(skillid))
+				    AddInt("Masterlevel");
+				EndNode(false);
+			}
+			EndNode(false);
+		}
+	    
+		tmp = AddShort("Cooldowns");
+		for (i = 0; i < tmp; i++) {
+			AddInt("CD - SkillID");
+			AddInt("CD - time");
+		}
+	    
+		StartNode("quests");
+		val1 = AddByte("DUNNO");
+	    amount = AddShort("Quests");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		
+		amount = AddShort("?");
+		for (i = 1; i <= amount; i++) {
+			StartNode("??? " + i);
+			AddString("Val1");
+			AddString("Val2");
+			EndNode(false);
+		}
+		
+		AddByte("val2");
+		
+		amount = AddShort("Done Quests");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Done " + i);
+			AddShort("ID");
+			AddLong("At");
+			EndNode(false);
+		}
+		
+		EndNode(false);
+		
+	    cnt = AddShort("Match Records");
+		for (i = 0; i < cnt; i++) {
+			StartNode("Match " + i);
+			
+			AddInt("2");
+			AddInt("2");
+			AddInt("2");
+			AddInt("2");
+			AddInt("2");
+			
+			EndNode(false);
+		}
+		cnt = AddShort("Couple Records");
+		for (i = 0; i < cnt; i++) {
+			AddField("Unk", 33);
+		}
+		cnt = AddShort("Friend Records");
+		for (i = 0; i < cnt; i++) {
+			AddField("Unk", 37);
+		}
+		cnt = AddShort("Marriage Records");
+		for (i = 0; i < cnt; i++) {
+			AddField("Unk", 48);
+		}
+		
+		StartNode("Tele Rocks");
+		for (i = 1; i <= (5 + 10 + 13 + 13); i++)
+		    AddInt("Rock Location: " + i);
+		EndNode(false);
+		
+		StartNode("Monsterbook");
+		AddInt("Selected Char");
+		if (AddByte("Mode") == 0x00) {
+			amount = AddShort("cards");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Card " + i);
+				AddShort("ID");
+				AddByte("Level");
+				EndNode(false);
+			}
+		}
+		else {
+			AddShort("Unk");
+			size = AddShort("Size");
+			AddField("Cards", size);
+			size = AddShort("Size");
+			AddField("Levels", size);
+		}
+		
+		EndNode(false);
+		
+		AddInt("-1"); // & 0x1000
+		
+		tmp = AddShort("?x2"); // & 0x2000
+		AddField("Data of above", tmp * 2); // Short list
+		
+	    tmp = AddShort("NewYear Cards"); // & 0x40
+		StartNode("Cards");
+		for (i = 0; i < tmp; i++) {
+			StartNode("Card " + i);
+			AddInt("?");
+			AddInt("?");
+			AddString("?");
+			AddByte("?");
+			AddLong("?");
+			AddInt("?");
+			AddString("?");
+			AddByte("?");
+			AddByte("?");
+			AddLong("?");
+			AddString("?");
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		StartNode("pquest"); // & 0x40000
+		amount = AddShort("?x2");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		// ONLY IF WHUNTER
+		StartNode("Hunt Data"); // & 0x200000
+		//AddByte("Level");
+		for (i = 0; i < 5; i++) {
+           // AddInt("Val " + i);			
+		}
+		EndNode(false);
+		// END
+		
+		
+		StartNode("PQs done ");
+		tmp = AddShort("amount"); // & 0x4000000
+		
+		for (i = 0; i < tmp; i++) {
+			StartNode("Block " + i);
+			AddShort("...");
+			AddLong("...");
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		cnt = AddShort("?x2"); // 0x4000000
+		for (i = 1; i <= cnt; i++) {
+			StartNode("DERP " + i);
+			a1 = AddShort("UNK1");
+			a2 = AddInt("UNK2");
+			if (a1 > 0 && a2 > 0) {
+				for (j = 0; j < a1; j++) {
+					AddInt("???");
+					AddShort("???");
+					AddInt("???");
+					AddShort("???");
+			    }
+			}
+			EndNode(false);
+		}
+		
+		StartNode("????");
+		for (i = 1; i <= 13; i++) {
+			AddInt("UNK");
+		}
+		EndNode(false);
+		
+		StartNode("????"); // 0x10000000
+		for (i = 1; i <= 4; i++) {
+			AddInt("UNK");
+		}
+		EndNode(false);
+		
+		StartNode("Block"); // 0x80000000
+		tmp = AddShort("hurr");
+		for (i = 0; i < tmp; i++) {
+	    	StartNode("Block " + i);
+			AddByte("UNK");
+			AddInt("UNK");
+			AddByte("UNK");
+			AddByte("UNK");
+		    EndNode(false);
+		}
+		EndNode(false);
+		
+		// & 1
+		AddInt(",");
+		AddInt(",");
+		
+		// & 2
+		StartNode("Block");
+		tmp = AddByte("?");
+		if (tmp == 1) {
+			while (true) {
+			 	tmp = AddShort("??");
+				if (tmp <= 0) break;
+				
+		    	StartNode("Block " + tmp);
+				AddShort("??");
+	            while (true) {
+			    	tmp2 = AddShort("??");
+					if (tmp2 <= 0) break;
+		        	StartNode("Block " + tmp2);
+					AddInt("Durrr");
+					AddInt("Durrr");
+			        EndNode(false);
+		    	}
+				
+			    EndNode(false);
+		    }
+        }
+		else {
+            while (true) {
+		    	tmp = AddShort("??");
+				if (tmp <= 0) break;
+	        	StartNode("Block " + tmp);
+				AddShort("Durrr");
+				AddInt("Durrr");
+				AddInt("Durrr");
+		        EndNode(false);
+	    	}
+		}
+	    EndNode(false);
+		
+		StartNode("..."); // & 0x04
+		if (AddByte("unk") == 1) {
+			DecodeItem();
+			AddInt("---");
+		}
+		EndNode(false);
+		
+		StartNode("fmemew"); // & 0x08
+		AddInt("....");
+		AddInt("....");
+		AddInt("....");
+		AddByte("....");
+		EndNode(false);
+		
+		StartNode("32r32"); // & 0x20
+		AddInt("....");
+		AddInt("....");
+		AddLong("....");
+		EndNode(false);
+		
+		AddField("WAT DE FUCK", 84); // & 0x10000
+		AddByte("unk");
+		
+		tmp = AddShort("hmm"); // &0x80
+		for (i = 0; i < tmp; i++) {
+			AddShort("...1");
+			AddShort("...2");
+		}
+		
+		StartNode("3ewfew2"); // & 0x20
+		AddInt("....");
+		AddInt("....");
+		AddInt("....");
+		AddInt("....");
+		AddField("....", 32);
+		EndNode(false);
+		
+		AddInt("hurr");
+	}
+	AddLong("Servertime");
+	AddInt("100?");
+	AddByte("Unk");
+	AddByte("0?");
+	AddByte("0?");
+}

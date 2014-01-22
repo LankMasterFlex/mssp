@@ -1,0 +1,15 @@
+using(ScriptAPI) {
+	AddInt("Spawn ID");
+	AddByte("Android ID");
+	AddShort("X");
+	AddShort("Y");
+	AddByte("Stance");
+	AddShort("Foothold");
+	AddShort("Skin?");
+	AddShort("Hair");
+	AddShort("Face");
+	AddString("Name");
+	for (i = 0; i < 7; i++) {
+		AddInt("Equip " + i);
+	}
+}

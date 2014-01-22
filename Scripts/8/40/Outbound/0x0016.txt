@@ -1,0 +1,25 @@
+using (ScriptAPI) {
+	tbyte = AddByte("TByte");
+	hits = tbyte % 0x10;
+	targets = tbyte / 0x10;
+	AddComment("Hits: " + hits);
+	AddComment("Targets: " + targets);
+	skillid = AddInt("SkillID");
+	AddByte("Lolwat");
+	AddByte("Display");
+	AddByte("Animation");
+	
+	for (i = 0; i < targets; i++) {
+		StartNode("Hit " + i);
+		AddInt("Object ID");
+		AddField("Derp", 4);
+		AddShort("Pos X");
+		AddShort("Pos Y");
+		AddShort("Damage X");
+		AddShort("Damage Y");
+		for (j = 0; j < hits; j++) {
+			AddInt("Damage val " + j);
+    	}
+	    EndNode(true);
+	}
+}

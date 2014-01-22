@@ -1,0 +1,88 @@
+using (ScriptAPI) {
+	AddByte("4");
+	npc = AddInt("NPC ID");
+	sort = AddByte("Type");
+	AddByte("I think its player/npc bool");
+	scriptText = AddString("Text");
+	sortThing1 = false;
+	sortThing2 = false;
+	sortString = "";
+	if (sort == 0x00) {
+			sortString = "send"; 
+			sortThing1 = AddBool("Back button");
+			sortThing2 = AddBool("Next button");
+			if (sortThing1) {
+				sortString += "Back";
+			    if (sortThing2)
+			        sortString += "Next";
+			    else
+			        sortString += "Ok";
+			}
+			else if (!sortThing1) {
+			    if (sortThing2)
+			        sortString += "Next";
+			    else
+			        sortString += "Ok";
+			}
+			sortString += "();";			
+	}
+	else if (sort == 0x02) {
+		sortString = "askYesNo();";
+	}
+	else if (sort == 0x03) {
+		sortString = "askText(";
+		sortThing1 = AddShort("Min length");
+		sortThing2 = AddShort("Max length");
+		if (sortThing1 > 0) {
+		    sortString += sortThing1 + ", ";
+		}
+		else {
+			sortString += "0, ";
+		}
+		if (sortThing2 > 0) {
+		    sortString += sortThing2;
+		}
+		else {
+			sortString += "0";
+		}
+		sortString += ");";
+	}
+	else if (sort == 0x04) {
+		sortString = "askNumber(";
+		sortThing1 = AddString("Default");
+		sortThing2 = AddShort("Min length");
+		sortThing3 = AddShort("Max length");
+		sortString += "\"" + sortThing1 + "\", " + sortThing2 + ", " + sortThing3 + ");";
+	}
+	else if (sort == 0x05) {
+		sortString = "askChoice();";
+	}
+	else if (sort == 0x08) {
+		amount = AddByte("Amount of styles");
+		StartNode("Styles");
+		ret = "styles = {";
+		for (i = 1; i <= amount; i++) {
+			ret += AddInt("Style " + i);
+			if (i != amount) {
+				ret += ", ";
+			}
+		}
+	    ret += "};";
+		EndNode(false);
+		Write("NPC_" + npc + ".lua", ret);
+		sortString = "askStyle(styles);";
+	}
+	else if (sort == 0x0c) {
+		sortString = "askAcceptDecline();";
+	}
+	else if (sort == 0x0e) {
+		sortString = "askMap();";
+	}
+	else {
+        AddComment("Wat... New type: " + sort);
+	}
+	scriptText2 = "addText(\"" + scriptText + "\");";
+	AddComment(sortString);
+	Write("NPC_" + npc + ".lua", scriptText2);
+	Write("NPC_" + npc + ".lua", sortString);
+}

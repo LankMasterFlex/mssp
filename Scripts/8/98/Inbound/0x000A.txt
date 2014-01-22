@@ -1,0 +1,23 @@
+using (ScriptAPI) {
+	wid = AddByte("World ID");
+	if (wid != 0xFF) {
+		AddString("WorldName");
+		AddByte("Ribbon");
+		AddString("Event Message");
+		AddShort("EXP rate");
+		AddShort("DROP rate");
+		AddByte("Unk");
+		channels = AddByte("Channels");
+		StartNode("Channels");
+		for (i = 1; i <= channels; i++) {
+			StartNode("Channel " + i);
+			AddString("ChannelName");
+			AddInt("Load");
+			AddByte("World ID");
+			AddByte("Channel ID");
+			AddByte("State");
+			EndNode(false);
+		}
+		EndNode(true);
+	}
+}

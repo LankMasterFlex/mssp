@@ -1,0 +1,46 @@
+using (ScriptAPI) {
+	b1 = AddByte("..");
+	b2 = AddByte("..");
+	b3 = AddByte("..");
+	if (b3 == 0) {
+		for (i = 0; i < b2; i++) {
+			StartNode("Item " + i);
+			b4 = AddByte("...");
+			inv = AddByte("Inventory");
+			slot = AddShort("Slot");
+			AddComment("Item Mode: " + b4);
+			if (b4 == 0) {
+				DecodeItem();
+			}
+		    else if (b4 == 1) {
+				AddShort("Amount");
+			}
+		    else if (b4 == 2) {
+				AddShort("Slot to");
+			}
+		    else if (b4 == 3) {
+					
+			}
+		    else if (b4 == 5) {
+				AddComment("Item to-from bag");
+				AddShort("Slot to");
+				AddShort("UNK");
+			}
+		    else if (b4 == 6) {
+				AddComment("Update bag item amount");
+			}
+		    else if (b4 == 7) {
+				AddComment("Delete item from bag");
+			}
+		    else if (b4 == 8) {
+				AddComment("Inside bag swap");
+				AddShort("Slot to");
+			}
+		    else if (b4 == 9) {
+				AddComment("Add item direct to bag");
+				DecodeItem();
+			}
+		    EndNode(true);
+		}	
+	}
+}

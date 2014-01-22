@@ -1,0 +1,5 @@
+using (ScriptAPI) {
+	AddByte("MapleStory Locale");
+	AddUShort("MapleStory Version");
+	AddShort("MapleStory Patch Location");
+}

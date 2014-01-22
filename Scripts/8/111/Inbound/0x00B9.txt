@@ -1,0 +1,318 @@
+using (ScriptAPI) {
+	StartNode("Opts");
+	opts = AddShort("Options");
+	for (i = 1; i <= opts; i++) {
+		StartNode("Option " + i);
+		AddInt("Key");
+		AddInt("Value");
+		EndNode(false);
+	}
+	EndNode(false);
+	
+	AddInt("Channel");
+	AddByte("?");
+	AddInt("?x4");
+	AddByte("Portals");
+	
+	AddInt("?x4");
+	
+	isConnecting = AddByte("Is Connecting");
+	
+    StartNode("Top Messages");
+	msgs = AddShort("Messages");
+	if (msgs > 0) {
+		AddString("Title");
+		for (i = 1; i <= msgs; i++) {
+    		AddString("Msgs: " + i);
+		}	
+	}
+	EndNode(false);
+
+	if (isConnecting == 0x00) {
+		AddByte("False");
+		AddInt("MapID");
+		AddByte("Mappost");
+		AddInt("HP");
+		AddByte("False");
+		
+	}
+	else {
+		StartNode("RNG");
+		AddInt("Value 1");
+		AddInt("Value 2");
+		AddInt("Value 3");
+		EndNode(false);
+		
+		AddLong("Flag");
+		
+	    AddByte("?");
+		
+		StartNode("loop");
+		amount = AddByte("UnknownLoop");
+		for (i = 0; i < amount; i++)
+		    AddInt("Value " + i);
+		EndNode(false);
+		StartNode("loop");
+		amount = AddInt("UnknownLoop");
+		for (i = 0; i < amount; i++) {
+		    AddInt("Value " + i);
+		    AddLong("Value " + i);
+		}
+		EndNode(false);
+		
+		if (AddByte("???") == 0x01) {
+			StartNode("Data");
+			amount = AddInt("Amount");
+			for (i = 0; i < amount; i++)
+			    AddLong("Value " + amount);
+			
+			amount = AddInt("Amount");
+			for (i = 0; i < amount; i++)
+			    AddLong("Value " + amount);
+			
+			EndNode(false);
+		}
+	
+        LoadChar();
+		
+		AddByte("?");
+		if (AddByte("HasBlessing") == 0x01)
+		    AddString("Blesser");
+		if (AddByte("Unk") == 0x01)
+		    AddString("?");
+		if (AddByte("Unk") == 0x01)
+		    AddString("?");
+		
+		StartNode("Inventory");
+		
+		AddInt("Money");
+		amount = AddInt("???");
+		for (i = 0; i < amount; i++) {
+			AddInt("V1 " + i);
+			AddInt("V2 " + i);
+			AddInt("V3 " + i);
+			AddInt("V4 " + i);
+		}
+	
+	    for (i = 1; i <= 5; i++)
+		    AddByte("Max Slots " + i);
+		
+		AddLong("Something?");
+		
+		for (i = 1; i <= 6; i++) {
+	    	StartNode("Inv " + i);
+	    	while (true) {
+	    	    slot = AddShort("Slot ID");
+	    	    if (slot == 0x00) break;
+	    		StartNode("? " + slot);
+	    		DecodeItem();
+	    		EndNode(false);
+	    	}
+	    	EndNode(false);
+		}
+		
+		
+		for (i = 2; i <= 5; i++) {
+	    	StartNode("Inv " + i);
+	    	while (true) {
+	    	    slot = AddByte("Slot ID");
+	    	    if (slot == 0x00) break;
+	    		StartNode("? " + slot);
+	    		DecodeItem();
+	    		EndNode(false);
+	    	}
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		for (i = 1; i > 0 ; i++) {
+			val = AddInt("???");
+			if (val == -1) break;
+		}
+		
+		amount = AddInt("Amount");
+		for (i = 1; i <= amount; i++) {
+			AddInt("1 --");
+			AddLong("-- 2");
+		}
+		
+		amount = AddInt("Amount");
+		for (i = 1; i <= amount; i++) {
+			AddLong("1 --");
+			AddLong("-- 2");
+		}
+	
+	    AddByte("Looping...");
+		old = AddByte("Skills (USE OLD)");
+		if (old == 0x01) {
+			StartNode("Skills");
+			amount = AddShort("Amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+				AddInt("ID");
+				AddInt("Level");
+				AddLong("Expiration");
+				EndNode(false);
+			}
+			EndNode(false);
+		}
+	    else {
+			StartNode("s1");
+			amount = AddShort("amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+				AddInt("ID");
+				AddInt("Level");
+				EndNode(false);
+			}
+			EndNode(false);
+			StartNode("s2");
+			amount = AddShort("amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+				AddInt("ID");
+				EndNode(false);
+			}
+			EndNode(false);
+			StartNode("s3");
+			amount = AddShort("amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+				AddInt("ID");
+				AddLong("Exp");
+				EndNode(false);
+			}
+			EndNode(false);
+			StartNode("s4");
+			amount = AddShort("amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+				AddInt("ID");
+				EndNode(false);
+			}
+			EndNode(false);
+			StartNode("s5");
+			amount = AddShort("amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+				AddInt("ID");
+				AddInt("?");
+				EndNode(false);
+			}
+			EndNode(false);
+			StartNode("s6");
+			amount = AddShort("amount");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Skill " + i);
+				AddInt("ID");
+				EndNode(false);
+			}
+			EndNode(false);
+		}
+		amount = AddShort("Cooldowns");
+		StartNode("Cooldowns");
+		for (i = 1; i <= amount; i++) {
+		    StartNode("Cooldown " + i);
+		    AddInt("Skill");
+		    AddShort("Time");
+			EndNode(false);
+		}
+		EndNode(false);
+	    
+		StartNode("quests");
+		val1 = AddByte("DUNNO");
+	    amount = AddShort("Quests");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		
+		amount = AddShort("?");
+		for (i = 1; i <= amount; i++) {
+			StartNode("??? " + i);
+			AddString("Val1");
+			AddString("Val2");
+			EndNode(false);
+		}
+		
+		AddByte("val2");
+		
+		amount = AddShort("Done Quests");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Done " + i);
+			AddShort("ID");
+			AddLong("At");
+			EndNode(false);
+		}
+		
+		EndNode(false);
+		
+		AddShort("Match Records");
+		AddShort("Couple Records");
+		AddShort("Friend Records");
+		AddShort("Marriage Records");
+		
+		StartNode("Tele Rocks");
+		for (i = 1; i <= (5 + 10 + 13 + 13); i++)
+		    AddInt("Rock Location: " + i);
+		EndNode(false);
+		
+		StartNode("Monsterbook");
+		AddInt("Selected Char");
+		if (AddByte("Mode") == 0x00) {
+			amount = AddShort("cards");
+			for (i = 1; i <= amount; i++) {
+				StartNode("Card " + i);
+				AddShort("ID");
+				AddByte("Level");
+				EndNode(false);
+			}
+		}
+		else {
+			AddShort("Unk");
+			size = AddShort("Size");
+			AddField("Cards", size);
+			size = AddShort("Size");
+			AddField("Levels", size);
+		}
+		
+		EndNode(false);
+		
+		AddInt("-1");
+		AddShort("?x2");
+		AddShort("?x2");
+		
+		StartNode("pquest");
+		amount = AddShort("?x2");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		AddShort("?x2");
+		AddShort("?x2");
+		AddShort("?x2");
+		
+		StartNode("????");
+		for (i = 1; i <= 20; i++) {
+			AddInt("UNK");
+		}
+		EndNode(false);
+		
+		AddByte("?");
+		AddShort(",");
+		AddShort(",");
+		AddShort(",");
+		AddInt(",");
+		
+	}
+	AddLong("Servertime");
+	AddInt("100?");
+	AddByte("Unk");
+	AddByte("1?");
+}

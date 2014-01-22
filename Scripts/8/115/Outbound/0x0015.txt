@@ -1,0 +1,5 @@
+using (ScriptAPI) {
+	AddString("Password");
+	AddString("Auth Key");
+	AddByte("derp");
+}

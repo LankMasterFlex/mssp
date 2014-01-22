@@ -1,0 +1,7 @@
+using (ScriptAPI) {
+    AddString("pass");
+	AddString("Token");
+	AddField("Dunno", 28);
+	AddString("MoreShizz");
+	AddShort("Dunno lol");
+}

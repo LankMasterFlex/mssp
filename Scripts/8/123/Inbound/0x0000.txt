@@ -1,0 +1,19 @@
+using (ScriptAPI) {
+	AddInt("...");
+	AddShort("...");
+	AddInt("UserID");
+	AddInt("UNK");
+	AddByte("Status/gender");
+	AddByte("Admin");
+	AddShort("Stuffs");
+	AddByte("0x95?");
+	AddString("Username");
+	AddByte("0?");
+	AddByte(" Quiet Ban");
+	AddLong(" Quiet Ban Time");
+	AddLong(" Creation Time");
+	AddInt(" 78?");
+	AddByte(" 1?");
+	AddByte(" 1?");
+	AddLong(" CC Key");
+}

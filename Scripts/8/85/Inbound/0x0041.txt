@@ -1,0 +1,19 @@
+using(ScriptAPI) {
+	type = AddByte("Type");
+	if (type == 0x07) {
+		amount = AddByte("Amount");
+		StartNode("Buddies");
+		for (i = 1; i <= amount; i++) {
+	    	StartNode("Buddy " + i);
+			AddInt("Character ID");
+			AddPaddedString("Character Name", 13);
+			AddByte("Status");
+			AddInt("Channel");
+			AddPaddedString("Group Name", 13);
+			AddInt("Group ID");
+	    	EndNode(false);
+		}
+		EndNode(false);
+	}
+	
+}

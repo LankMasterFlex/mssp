@@ -1,0 +1,22 @@
+
+using (ScriptAPI) {
+	AddShort("weetnie");
+	AddByte("amount");
+	AddInt("CharID");
+	AddPaddedString("CharName", 13);
+	AddByte("Gender");
+	AddByte("Skin");
+	AddInt("Eyes");
+	AddInt("Hair");
+	AddLong("0");
+	AddLong("0");
+	AddLong("0");
+		
+	getStats();
+		
+	AddInt("Gachapon EXP");
+	AddInt("MapID");
+	AddByte("Map pos");
+	AddInt("Unknown");
+}
+getCharacterDisplay();

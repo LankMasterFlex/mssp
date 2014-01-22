@@ -1,0 +1,101 @@
+using (ScriptAPI) {
+	AddByte("status");
+	characters = AddByte("Characters");
+	StartNode("CharList");
+	for (i = 1; i <= characters; i++) {
+		StartNode("Char " + i);
+		AddInt("Charid");
+		AddPaddedString("Charname", 13);
+		AddByte("Gender");
+		AddByte("Skin");
+		AddInt("Face");
+		AddInt("Hair");
+		AddLong("PetID 1");
+		AddLong("PetID 2");
+		AddLong("PetID 3");
+		AddByte("Level");
+		job = AddShort("Job");
+		AddShort("STR");
+		AddShort("DEX");
+		AddShort("INT");
+		AddShort("LUK");
+		AddInt("HP");
+		AddInt("MaxHP");
+		AddInt("MP");
+		AddInt("MaxMP");
+		AddShort("AP");
+		v18 = job;
+		if (v18 / 1000 == 3 || v18 / 100 == 22 || v18 == 2001) {
+			l = AddByte("SPS");
+			for (j = 0; j < l; j++) {
+				AddByte("VAL1");
+				AddByte("VAL2");
+			}
+		}
+		else {
+	    	AddShort("SP");
+		}
+		AddInt("EXP");
+		AddInt("Fame");
+		AddInt("Unk");
+		AddInt("MapID");
+		AddByte("MapPOS");
+		AddInt("UNK");
+		AddByte("UNK");
+		AddShort("UNK");
+		AddInt("YYYYMMDDmm"); // Year Month Day Minute
+		
+		AddLong("???");
+		AddLong("???");
+		AddLong("???");
+		AddInt("!!!!");
+		
+		AddInt("1");
+		AddInt("2");
+		AddInt("3");
+		
+		AddInt("!!!!");
+		AddByte("!");
+		AddInt("!!!!");
+		AddByte("!");
+		
+		AddLong("???");
+		
+		AddByte("Gender");
+		AddByte("Skin");
+		AddInt("Face");
+		// AddByte("SLOT 1 LOL"); // REMOVED?!?!
+		AddInt("Hair");
+        StartNode("Equips Hidden");
+		for (j = 1; j != 0xFF; j++) {
+		    val = AddByte("SLOT " + j);
+			if (val == 0xFF) break;
+		    AddInt("Item ID " + j);
+		}
+		EndNode(false);
+		
+        StartNode("Equips Shown");
+		for (j = 1; j != 0xFF; j++) {
+		    val = AddByte("SLOT " + j);
+			if (val == 0xFF) break;
+		    AddInt("Item ID " + j);
+		}
+		EndNode(false);
+		AddInt("Cash Equip");
+		AddInt("0?");
+		AddInt("0?");
+		AddInt("0?");
+		
+		AddByte("0? - Has something to do with PIC");
+		AddByte("0? - Has something to do with PIC?");
+		
+		if (AddByte("Ranked?") == 1) {
+			AddInt("World Rank");
+			AddInt("Change");
+			AddInt("Job Rank");
+			AddInt("Change");
+		}
+		EndNode(false);
+	}
+	EndNode(true);
+}

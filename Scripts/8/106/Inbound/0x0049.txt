@@ -1,0 +1,19 @@
+using (ScriptAPI) {
+AddByte("test");
+AddInt("?");
+for (i = 0; i < 6; i++) {
+    AddInt("PlayerID");
+}
+for (i = 0; i < 6; i++) {
+    AddPaddedString("PlayerNAme", 13);
+}
+for (i = 0; i < 6; i++) {
+    AddInt("PlayerJob");
+}
+for (i = 0; i < 6; i++) {
+    AddInt("PlayerLevels");
+}
+for (i = 0; i < 6; i++) {
+    AddInt("PlayerChannels");
+}
+}

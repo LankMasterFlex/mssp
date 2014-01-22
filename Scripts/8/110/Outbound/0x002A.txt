@@ -1,0 +1,7 @@
+using (ScriptAPI) {
+	AddString("Name");
+	AddInt("Jobtype");
+	AddShort("Subtype");
+	AddByte("Gender");
+	AddField("Unknown",2);
+}

@@ -1,0 +1,44 @@
+using(ScriptAPI) {
+	type = AddByte("type");
+    AddByte("derp");
+	if (type == 0) {
+    	AddByte("derp");
+    	DecodeItem();
+	}
+	else if (type == 0x0A) {
+		AddByte("unk");
+		AddShort("More unk");
+		AddInt("Merch ID");
+		AddString("Name");
+		AddByte("Unknown");
+		StartNode("Players");
+	    while(true) {
+			slotid = AddByte("Slot ID");
+			if (slotid == 255) break;
+			StartNode("Player at slot" + slotid);
+			AddInt("Player ID");
+			DecodeAvatar();
+			AddString("Player name");
+			AddShort("Job ID");
+			
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		AddShort("Unk");
+		AddString("Owner name");
+		AddInt("Shop id?");
+		AddString("Shop title");
+		AddInt("???");
+		AddByte("more unk");
+	    items = AddByte("Items");
+		for (i = 1; i <= items; i++) {
+			StartNode("Item " + i);
+		    AddShort("Slot");
+		    AddShort("Slot ?");
+			AddInt("Price");
+			DecodeItem();
+			EndNode(false);
+		}
+	}
+}

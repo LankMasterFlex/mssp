@@ -1,0 +1,8 @@
+using (ScriptAPI) {
+	message = AddBool("Contains Message");
+	
+	if (message) {
+		AddInt("World ID");
+		AddString("Message");
+	}
+}

@@ -1,0 +1,14 @@
+using (ScriptAPI) {
+	mode = AddByte("mode");
+	
+	if (mode == 0) {
+		AddComment("Keymap");
+		for (i = 1; i < 90; i++) {
+			StartNode("Key " + i);
+			AddByte("Type");
+			AddInt("Action");
+			EndNode(false);
+		}
+	}
+	
+}

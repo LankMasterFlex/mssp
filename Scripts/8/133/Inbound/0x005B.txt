@@ -1,0 +1,18 @@
+using (ScriptAPI) {
+	m = AddByte("Mode");
+	if (m == 0x07) {
+		amount = AddByte("Amount");
+		for (i = 1; i <= amount; i++) {
+			StartNode("Friend " + i);
+			AddInt("Character ID");
+			AddPaddedString("Char Name", 13);
+			AddByte("Status info");
+			AddInt("Group ID");
+			AddPaddedString("Group name", 13);
+			AddInt("Zeroo");
+			
+			EndNode(false);
+		}
+		AddField("fun", amount * 4);
+	}
+}

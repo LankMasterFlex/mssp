@@ -1,0 +1,36 @@
+using (ScriptAPI) {
+    AddString("Name");
+	AddInt("");
+	job = AddInt("Job ID");
+	AddShort("Job Category");
+	AddByte("Gender");
+	AddShort("");
+	AddInt("Face ID");
+	AddInt("Hair ID");
+	
+	if (job < 5 && job != 1)
+        AddInt("Hair Color ID");
+
+	if (job != 6 && job != 5)
+        AddInt("Skin ID");
+
+	if (job == 6 || job == 19)
+	    AddInt("Face Marking ID");
+	
+	if (job == 17 || job == 18)
+	    AddInt("Hat ID");
+	
+	AddInt("Top/Overall ID");
+	
+	if (job < 5 && job != 1)
+	    AddInt("Bottom ID");
+	
+	if (job == 5 || job == 19)
+	    AddInt("Cape ID");
+	
+	AddInt("Shoes ID");
+	AddInt("Weapon ID");
+	
+	if (job == 6)
+	    AddInt("Shield ID");
+}

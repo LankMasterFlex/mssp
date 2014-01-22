@@ -1,0 +1,11 @@
+using (ScriptAPI) {
+	amount = AddByte("Amount");
+	for (i = 1; i <= amount; i++) {
+		StartNode("Player " + i);
+		AddInt("ID");
+		AddString("Name");
+		AddInt("Job");
+		AddByte("Level");
+		EndNode(false);
+	}
+}

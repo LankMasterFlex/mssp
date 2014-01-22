@@ -1,0 +1,15 @@
+using (ScriptAPI) {
+	mode = AddByte("mode");
+	if (mode != 2) {
+		AddComment("Weblogin");
+		AddString("Login key (cookie)");
+		AddField("CC key", 16);
+		AddInt("Prolly login mode");
+		AddByte("Unk");
+	}
+    wid = AddByte("World ID");
+	AddComment("WORLD ID: " + wid);
+	AddByte("Channel ID");
+	AddInt("Internal IP");
+
+}

@@ -1,0 +1,46 @@
+using (ScriptAPI) {
+	AddByte("portals");
+	tbyte = AddByte("TByte");
+	hits = tbyte % 0x10;
+	targets = tbyte / 0x10;
+	AddComment("Hits: " + hits);
+	AddComment("Targets: " + targets);
+	skill = AddInt("SkillID");
+	AddByte("The Unk");
+	AddInt("SKill CRC1");
+	AddInt("SKill CRC2");
+
+	if (skill == 2121001 || skill == 2221001 || skill == 2321001 || skill == 33101007) {
+		AddInt("Charge");
+	}
+	
+	AddByte("Display");
+	herp = AddShort("Anim and Speed");
+	AddInt("CRC");
+	AddByte("Wep Class");
+	AddByte("Unk");
+	AddInt("Ticks");
+	AddInt("CRC?");
+	
+	// AddByte("Mastery");
+	// AddInt("??");
+	
+	for (i = 1; i <= targets; i++) {
+		StartNode("Hit " + i);
+		oid = AddInt("Object ID");
+		if (oid == 0) {
+		    EndNode(true);
+			continue;
+		}
+		AddInt("Shit");
+		AddInt("Mob Pos");
+		AddInt("Damage Pos");
+		AddShort("Distance");
+		for (j = 1; j <= hits; j++) {
+			AddInt("Damage val " + j);
+		}
+		AddInt("CRC");
+		EndNode(true);
+	}
+    AddInt("Player Pos");
+}

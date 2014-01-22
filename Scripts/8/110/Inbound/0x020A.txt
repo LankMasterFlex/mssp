@@ -1,0 +1,6 @@
+using (ScriptAPI) {
+	AddInt("?");
+	AddInt("?");
+	AddByte("...");
+	AddShort("Items");
+}

@@ -1,0 +1,13 @@
+using (ScriptAPI) {
+	count = AddInt("elements");
+	AddByte("unk");
+	for (i = 1; i <= count; i++) {
+		StartNode("Element " + i);
+		AddString("Process name");
+		AddString("Title1");
+		AddString("Title2");
+		AddString("Hash1");
+		AddString("Hash2");
+		EndNode(false);
+	}
+}

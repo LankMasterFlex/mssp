@@ -1,0 +1,410 @@
+function getCharacterDisplay() {
+	using (ScriptAPI) {
+		AddByte("Gender");
+		AddByte("Skin");
+		AddInt("Eyes");
+		AddByte("Unknown, facing?");
+		AddInt("Hair");
+		getEquippedPacket();
+		for (i = 1; i <= 3; i++) {
+			AddInt("Pet " + i + " item ID");
+		}
+	}
+}
+
+function getEquippedPacket() {
+	using (ScriptAPI) {
+		StartNode("Shown items");
+		for (i = 1; i <= 51; i++) {
+			StartNode("Item " + i);
+			slot = AddByte("Slot");
+			if (slot != 0xFF) {
+				AddInt("ItemID");
+			}
+			EndNode(false);
+			if (slot == 0xFF) break;
+		}
+	    EndNode(false);
+		StartNode("Covered items");
+		for (i = 1; i <= 51; i++) {
+			StartNode("Item " + i);
+			slot = AddByte("Slot");
+			if (slot != 0xFF) {
+				AddInt("ItemID");
+			}
+			EndNode(false);
+			if (slot == 0xFF) break;
+		}
+		EndNode(false);
+		AddInt("Cash weapon ID");		
+	}
+	
+}
+
+
+function getCharacterData() {
+	using (ScriptAPI) {
+	    AddLong("-1");
+		AddInt("CharID");
+		AddPaddedString("CharName", 13);
+		AddByte("Gender");
+		AddByte("Skin");
+		AddInt("Eyes");
+		AddInt("Hair");
+		AddLong("0");
+		AddLong("0");
+		AddLong("0");
+		
+		getStats();
+		
+		AddInt("Gachapon EXP");
+		AddInt("MapID");
+		AddByte("Map pos");
+		AddInt("Unknown");
+		AddByte("Buddylist Size");
+				
+		getInventory();
+		getSkills();
+		getQuests();
+		
+		//AddLong("0");
+		
+		ring = AddShort("Some sort of ring shit");
+		
+		for (i = 0; i < ring; i++) {
+			AddInt("Ring UNK");
+			AddInt("Ring UNK");
+			AddInt("Ring UNK");
+			AddInt("Ring UNK");
+		}
+		
+		unk = AddShort("unk1");
+		for (i = 0; i < unk; i++) {
+			AddField("Unklol", 33);
+		}
+		
+		unk = AddShort("unk2");
+		for (i = 0; i < unk; i++) {
+			AddField("Unklol", 37);
+		}
+		
+		unk = AddShort("unk3");
+		for (i = 0; i < unk; i++) {
+			AddField("Unklol", 48);
+		}	
+		
+			
+		getRockMaps();
+		
+		getMonsterbook();
+		
+		unk = AddShort("0");
+		StartNode("UNK");
+		for (i = 0; i < unk; i++) {
+		    StartNode("UNK");
+			AddInt("Unk1");
+			AddInt("Unk2");
+			AddString("Unk3");
+			AddByte("Unk4");
+			AddLong("More unk");
+			AddInt("Moreee");
+			AddString("IDFK");
+			AddByte("??");
+			AddByte("??");
+			AddLong("??");
+			AddString("??");
+	        EndNode(false);
+    	}
+	    EndNode(false);
+		getPQuestData();
+		AddShort("0");
+	}
+
+}
+
+function getStats() {
+    using (ScriptAPI) {
+		StartNode("Stats");
+	   	AddByte("getLevel()");
+		AddShort("getJob()");
+		AddShort("getStr()");
+		AddShort("getDex()");
+		AddShort("getInt()");
+		AddShort("getLuk()");
+		AddShort("getHp()");
+		AddShort("getMHp(true)");
+		AddShort("getMp()");
+		AddShort("getMMp(true)");
+		AddShort("getAp()");
+		AddShort("getSp()");
+		AddInt("getExp()");
+		AddShort("getFame()");
+		EndNode(false);
+	}	
+}
+
+function getInventory() {
+    using (ScriptAPI) {
+		StartNode("Inventory");
+        AddInt("Mesos");
+		AddByte("Equip: Max Slots");
+		AddByte("Use: Max Slots");
+		AddByte("Setup: Max Slots");
+		AddByte("Etc: Max Slots");
+		AddByte("Cash: Max Slots");
+				
+		StartNode("Equip Inventory");
+		for (i = 1; i <= 255; i++) {
+			if (getItem(i)) break;
+		}
+		for (; i <= 255;) {
+			i++;
+			if (getItem(i)) break;
+		}
+		for (; i <= 255;) {
+			i++;
+			if (getItem(i)) break;
+		}
+		EndNode(false);
+		
+		StartNode("Use Inventory");
+		for (i = 1; i <= 255; i++) {
+			if (getItem(i)) break;
+		}
+		EndNode(false);
+		
+		StartNode("Setup Inventory");
+		for (i = 1; i <= 255; i++) {
+			if (getItem(i)) break;
+		}
+		EndNode(false);
+		
+		StartNode("Etc Inventory");
+		for (i = 1; i <= 255; i++) {
+			if (getItem(i)) break;
+		}
+		EndNode(false);
+		
+		StartNode("Cash Inventory");
+		for (i = 1; i <= 255; i++) {
+			if (getItem(i)) break;
+		}
+		EndNode(false);
+		
+		EndNode(false);
+	}	
+}
+
+function parseItemData() {
+    using (ScriptAPI) {
+		type = AddByte("Type");
+		itemid = AddInt("Itemid");
+		iscash = AddBool("is Cash");
+		if (iscash) {
+			AddLong("Cash ID");
+		}
+		AddLong("Expiration Date");
+		if (type == 0x01) { // Equip
+			AddByte("item->slots"); // Slots
+			AddByte("item->scrolls"); // Scrolls
+			AddShort("item->istr"); // STR
+			AddShort("item->idex"); // DEX
+			AddShort("item->iint"); // INT
+			AddShort("item->iluk"); // LUK
+			AddShort("item->ihp"); // HP
+			AddShort("item->imp"); // MP
+			AddShort("item->iwatk"); // W.Atk
+			AddShort("item->imatk"); // M.Atk
+			AddShort("item->iwdef"); // W.Def
+			AddShort("item->imdef"); // M.Def
+			AddShort("item->iacc"); // Acc
+			AddShort("item->iavo"); // Avo
+			AddShort("item->ihand"); // Hands
+			AddShort("item->ispeed"); // Speed
+			AddShort("item->ijump"); // Jump
+			AddString("item->name"); // Owner string
+			AddShort("item->flags"); // Lock, shoe spikes, cape cold protection, etc.
+			if (iscash) {
+				AddField("?", 6);
+				AddInt("0");
+			}
+            else {
+		    	AddByte("0");
+				AddByte("Item level");
+				AddShort("0");
+				AddShort("0 Item EXP of.. some sort");
+				AddInt("item->hammers");
+				AddLong("-1");
+			}
+			AddField("?", 8); // Always the same?
+			AddInt("-1");
+		}
+    	else if (type == 0x02) {
+			AddShort("Amount");
+			AddString("Name");
+			AddShort("Flags");
+			if (isRechargable(itemid)) {
+				AddLong("Some sort of recharg shit");
+			}
+		}
+	    else if (type == 0x03) {
+			AddPaddedString("Pet Name", 13);
+			AddByte("Level");
+			AddShort("Closeness");
+			AddByte("Fullness");
+			AddLong("Pet Expire");
+			AddInt("Unk");
+			AddInt("Trail expiration");
+		}	
+	}	
+}
+
+function getItem(i) {
+    using (ScriptAPI) {
+		StartNode("Item " + i);
+	   	slot = AddByte("Slot");
+		if (slot != 0x00) {
+			parseItemData();
+		}
+		else {
+			AddComment("--End--");
+		}
+		EndNode(false);
+		if (slot == 0x00) return true;
+		else return false;
+	}	
+}
+
+function getSkills() {
+    using (ScriptAPI) {
+		StartNode("Skills and Cooldowns");
+		StartNode("Skills");
+		skills = AddShort("Amount of Skills");
+		for (i = 1; i <= skills; i++) {
+			StartNode("Skill " + i);
+		    id = AddInt("ID");
+			AddInt("Level");
+			if (isFourthJobSkill(id)) {
+				AddInt("Max Level (4th job)");
+			}
+			EndNode(false);
+		}
+		EndNode(false);
+		StartNode("Cooldowns");
+		cooldowns = AddShort("Amount of Cooldowns");
+		for (i = 1; i <= cooldowns; i++) {
+			StartNode("Cooldown " + i);
+		    AddInt("SkillID");
+			AddShort("Time");
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		
+		EndNode(false);
+	}	
+	
+}
+
+function getQuests() {
+    using (ScriptAPI) {
+		StartNode("Quests");
+		StartNode("Active");
+		skills = AddShort("Amount of active quests");
+		for (i = 1; i <= skills; i++) {
+			StartNode("Quest " + i);
+		    AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		EndNode(false);
+		StartNode("Done");
+		cooldowns = AddShort("Amount of completed quests");
+		for (i = 1; i <= cooldowns; i++) {
+			StartNode("Quest " + i);
+		    AddShort("ID");
+			AddLong("Completion Time");
+			EndNode(false);
+		}
+		EndNode(false);
+		
+		
+		EndNode(false);
+	}	
+}
+
+function getRockMaps() {
+    using (ScriptAPI) {
+		StartNode("Teleport maps");
+		StartNode("Regular");
+		for (i = 1; i <= 5; i++) {
+		    AddInt("Map " + i);
+		}
+		EndNode(false);
+		StartNode("VIP");
+		for (i = 1; i <= 10; i++) {
+		    AddInt("Map " + i);
+		}
+		EndNode(false);
+		
+		
+		EndNode(false);
+	}	
+}
+
+function getMonsterbook() {
+    using (ScriptAPI) {
+		StartNode("Monsterbook");
+		AddInt("Cover");
+		AddByte("0");
+		cards = AddShort("Cards");
+		for (i = 1; i <= cards; i++) {
+			StartNode("Card " + i);
+			AddShort("Card num");
+			AddByte("Level");
+			EndNode(false);
+		}
+		EndNode(false);
+	}	
+}
+
+function getMonsterbook() {
+    using (ScriptAPI) {
+		StartNode("Monsterbook");
+		AddInt("Cover");
+		AddByte("0");
+		cards = AddShort("Cards");
+		for (i = 1; i <= cards; i++) {
+			StartNode("Card " + i);
+			AddShort("Card num");
+			AddByte("Level");
+			EndNode(false);
+		}
+		EndNode(false);
+	}	
+}
+
+function getPQuestData() {
+    using (ScriptAPI) {
+		StartNode("Party Quests");
+		q = AddShort("Quests");
+		for (i = 1; i <= q; i++) {
+			StartNode("Quest " + i);
+			AddShort("ID");
+			AddString("Data");
+			EndNode(false);
+		}
+		EndNode(false);
+	}	
+}
+
+
+function isFourthJobSkill(skillid) {
+	return ((skillid / 10000) % 10 == 2);
+}
+
+function isRechargable(itemid) {
+	itemid = itemid / 10000;
+	if (itemid == 207 || itemid == 233) return true;
+	else return false;
+}

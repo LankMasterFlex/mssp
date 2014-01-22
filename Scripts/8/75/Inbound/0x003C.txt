@@ -1,0 +1,32 @@
+using(ScriptAPI) {
+	type = AddByte("Type");
+	if (type == 0x07 || type == 0x0A) {
+		amount = AddByte("Amount");
+		StartNode("Buddies");
+		for (i = 1; i <= amount; i++) {
+	    	StartNode("Buddy " + i);
+			AddInt("Character ID");
+			AddPaddedString("Character Name", 13);
+			AddByte("Status");
+			AddInt("Channel");
+			AddPaddedString("Group Name", 13);
+			AddInt("Group ID");
+	    	EndNode(false);
+		}
+		EndNode(false);
+	}
+	else if (type == 0x09) {
+        AddInt("Charid");
+		AddString("CharName");
+	   	StartNode("Buddy ");
+		AddInt("Character ID");
+		AddPaddedString("Character Name", 13);
+		AddByte("Status");
+		AddInt("Channel");
+		AddPaddedString("Group Name", 13);
+		AddInt("Group shit");
+	   	EndNode(false);		
+		
+		
+	}
+}

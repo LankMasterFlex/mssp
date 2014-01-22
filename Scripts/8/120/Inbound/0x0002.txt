@@ -1,0 +1,27 @@
+using (ScriptAPI) {
+	AddByte(" 0");
+AddInt("");
+AddByte(" Gender or GenderSelect/PinSelect");
+AddByte(" ADMIN");
+AddShort("");
+AddByte(" 0x95");
+AddString("");
+
+AddByte("0");
+
+AddByte(" Quiet Ban");
+AddLong(" Quiet Ban Time");
+AddString(" NEW");
+AddLong(" Creation Time");
+
+AddInt(" 78?");
+
+AddLong(" CC Key");
+
+AddByte(" 0?");
+
+AddByte(" 0?");
+AddByte(" 0?");
+AddByte(" 1?");
+AddByte(" 1?");
+}

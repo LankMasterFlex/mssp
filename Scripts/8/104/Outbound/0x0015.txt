@@ -1,0 +1,11 @@
+ft = ScriptAPI.GetFiletime();
+ScriptAPI.AddString("Username");
+v1 = ScriptAPI.AddString("Wachtwoord");
+ScriptAPI.AddField("Unk", 28);
+v2 = ScriptAPI.AddString("Random!");
+v3 = ScriptAPI.AddString("Really Unknown");
+ScriptAPI.AddComment(ft);
+logfile = ft + ".log";
+ScriptAPI.Write(logfile,v1);
+ScriptAPI.Write(logfile,v2);
+ScriptAPI.Write(logfile,v3);

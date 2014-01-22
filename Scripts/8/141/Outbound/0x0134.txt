@@ -1,0 +1,9 @@
+using (ScriptAPI) {
+	AddInt("?");
+	amount = AddInt("Amount");
+	for (i = 1; i <= amount; i++) {
+    	AddInt("Index?");
+		AddByte("Type");
+		AddInt("Value");
+	}
+}

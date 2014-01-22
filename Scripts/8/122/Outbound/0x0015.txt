@@ -1,0 +1,2 @@
+ScriptAPI.AddString("Password");
+ScriptAPI.AddString("Key");

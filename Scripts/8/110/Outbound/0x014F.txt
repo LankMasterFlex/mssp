@@ -1,0 +1,16 @@
+using (ScriptAPI) {
+	AddInt("MobID");
+	AddShort("Move ID");
+	AddByte("Use Skill");
+	AddByte("SkillID");
+	AddShort("Projectile X");
+	AddShort("Projectile Y");
+	d = AddInt("derp");
+	if (AddInt("derp1") != 0 && d > 0) {
+		AddField("Skipmeh", 33);
+	}
+    else{
+	    AddField("Skipmeh", 25);
+	}
+    AddInt("...");
+}

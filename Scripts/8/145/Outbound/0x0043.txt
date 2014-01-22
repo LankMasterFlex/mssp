@@ -1,0 +1,6 @@
+using (ScriptAPI) {
+	AddByte("Connection Type");
+	AddByte("World ID");
+	AddByte("Channel ID");
+	AddInt("Local IP Address");
+}

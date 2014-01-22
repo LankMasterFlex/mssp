@@ -1,0 +1,39 @@
+using (ScriptAPI) {
+	AddInt("Player ID");
+	attinfo = AddByte("Attack info");
+	
+	targets = attinfo / 0x10;
+	hits = attinfo % 0x10;
+	
+	AddComment("Hits " + hits + " times on " + targets + " targets");
+	
+	AddByte("Unk");
+    level = AddByte("Skill level");
+	if (level > 0) {
+		AddInt("SkillID");
+	}
+
+	AddByte("Unk?");
+	
+	AddByte("Display");
+	AddShort("Animation and Speed");
+	AddByte("Wep Class");
+	AddByte("Mastery");
+	AddInt("StarID");
+	
+    for (i = 0; i < targets; i++) {
+		StartNode("Target " + i);
+		mobid = AddInt("Mob ID");
+		if (mobid == 0) {
+            AddComment("HAAX");
+			continue;
+		}
+		AddByte("Unk? ");
+		AddByte("Unk? ");
+		for (j = 0; j < hits; j++) {
+	    	AddByte("Unk? " + j);
+			AddInt("Hit " + j);
+		}
+        EndNode(true);
+	}
+}

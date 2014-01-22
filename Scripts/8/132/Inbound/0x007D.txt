@@ -1,0 +1,20 @@
+using (ScriptAPI) {
+	amount = AddInt("Amount of familiars");
+	for (i = 1; i <= amount; i++) {
+		StartNode("Familiar " + i);
+		AddInt("unique id?");
+		AddInt("Mob ID");
+		AddPaddedString("Name", 13);
+		AddByte("Fitality");
+		AddByte("Max Fitality");
+		AddInt("Derp");
+		AddByte("Dunno");
+		AddLong("Start time");
+		AddLong("Update time");
+		AddLong("End time");
+		
+		AddByte("Fitality");
+		AddByte("Max Fitality");
+		EndNode(false);
+	}
+}

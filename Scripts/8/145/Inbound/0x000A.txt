@@ -1,0 +1,36 @@
+using (ScriptAPI) {
+	AddBool("View All Characters");
+	characters = AddByte("Characters Count");
+	
+	StartNode("Characters");
+	
+	for (i=0; i<characters; i++) {
+		StartNode("Character " + i);
+		
+		DecodeCharacter();
+		
+		EndNode(false);
+	}
+
+	EndNode(false);
+	
+	picStatus = AddByte("PIC Identifier");
+	
+	if (picStatus == 0)
+	    AddComment("Unregistered PIC");
+	else if (picStatus == 1)
+	    AddComment("Request PIC");
+	else if (picStatus == 2)
+	    AddComment("Unrequest PIC");
+	else if (picStatus == 4)
+	    AddComment("Recommend Change");
+	else
+	    AddComment("Unknown " + picStatus);
+	
+	AddByte("");
+	AddInt("Character Slots");
+	AddInt("");
+	AddInt("");
+	AddLong("Current System Time");
+	AddField("", 5);
+}

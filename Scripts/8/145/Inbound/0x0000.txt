@@ -1,0 +1,25 @@
+using (ScriptAPI) {
+    status = AddByte("Status");
+	AddField("Unknown", 5);
+	
+	if (status == 0)
+	{
+        AddInt("Account ID");	
+		AddField("Admin Bytes", 9);
+		AddString("Account Name");
+		AddLong("");
+		AddShort("");
+		AddLong("");
+		AddInt("");
+		AddBool("Character Creation Enabled");
+		AddByte("Character Creation Order");
+		
+		AddField("Enabled Jobs' Flags", 19);
+		
+		AddByte("");
+		AddByte("");
+		AddLong("Session ID");
+	} else {
+	    // TODO: Handle other statuses.	
+	} 
+}

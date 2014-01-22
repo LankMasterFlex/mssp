@@ -1,0 +1,85 @@
+using (ScriptAPI) {
+	AddByte("Portals");
+	AddInt("Dunno, always same");
+	AddShort("X");
+	AddShort("Y");
+	amount = AddByte("actions");
+	for (i = 1; i <= amount; i++) {
+		StartNode("Action " + i);
+		action = AddByte("Action");
+		AddComment("Action Type: " + action);
+		if (action == 10) {
+			AddComment("Falling of some kind");
+			AddByte("Unk");
+		}
+		else if (action == 16) {
+			AddComment("Wings");
+			AddField("Unk", 7);
+		}
+		else if (action == 17) {
+			AddComment("Part of wings, the falling shit");
+			AddShort("X");
+			AddShort("Y");
+			AddShort("Foothold");
+			AddByte("Stance");
+			AddField("Unk", 6);
+		}
+		else if (action == 12) {
+			AddComment("HT knockback");
+			AddField("Unk", 7);
+		}
+		else if (action == 14) {
+			AddComment("UNK");
+			AddField("Unk", 9);
+		}
+		else if (action == 0 || action == 5) {
+			AddComment("Regular movement");
+			v1 = AddShort("X");
+			v2 = AddShort("Y");
+			v3 = AddField("Unk2", 4);
+			v4 = AddShort("Foothold");
+			v5 = AddByte("Stance");
+			v6 = AddShort("Time?");
+			Write("movelog.log", "Action " + action + 
+			" X " + v1 +
+			" Y " + v2 +
+			" FH " + v4 +
+			" Stance " + v5 +
+			" Time " + v6);
+		}
+		else if (action == 1 || action == 2 || action == 6 || action == 13) {
+			AddComment("Multiple");
+			v1 = AddShort("X");
+			v2 = AddShort("Y");
+			v3 = AddByte("Stance");
+			v4 = AddShort("Foothold");
+			Write("movelog.log", "Action " + action);
+		}
+		else if (action == 15) {
+			AddComment("Jump Down");
+			AddShort("X");
+			AddShort("Y");
+			AddField("Unk", 6);
+			AddShort("Foothold");
+			AddByte("Stance");
+			AddField("Unk", 2);
+		}
+		else if (action == 11) {
+			AddComment("Chair");
+			AddShort("X");
+			AddShort("Y");
+			AddShort("Foothold");
+			AddByte("Stance");
+			AddField("Unk", 2);
+		}
+		else if (action == 3 || action == 4 || action == 7 || action == 9 || action == 8) {
+			AddComment("Multiple 2");
+			AddShort("X");
+			AddShort("Y");
+			AddField("Unk", 4);
+			AddByte("Stance");
+		}
+		
+		EndNode(true);
+	}
+}

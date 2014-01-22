@@ -1,0 +1,5 @@
+using (ScriptAPI) {
+    AddString("PIC");
+	AddInt("Character ID");
+	AddString("MAC Addresses");
+}

@@ -1,0 +1,12 @@
+using (ScriptAPI) {
+	status = AddShort("Status");
+	
+    if (status == 0)
+	    AddComment("Available");
+	else if (status == 1)
+	    AddComment("Highly Populated");
+	else if (status == 2)
+	    AddComment("Full");
+	else
+	    AddComment("Unknown");
+}
