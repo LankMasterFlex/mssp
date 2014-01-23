@@ -16,6 +16,35 @@ function DecodeCharacter() {
 	}
 }
 
+function DecodeCharacterData() {
+	using (ScriptAPI) {
+		AddLong("Mask");
+		AddByte("");
+			
+		for (i=0; i<3; i++)
+			AddInt("");
+		
+		AddByte("");
+		AddByte("");
+		AddInt("");
+		AddByte("");
+		DecodeCharacterStatistics();
+		AddByte("BuddyList Size");
+
+		fairy = AddBool("Blessing Fairy");
+		if (fairy)
+			AddString("Blesser");
+		
+		empress = AddBool("Blessing Empress");
+		if (empress)
+			AddString("Blesser");
+		
+		ultimate = AddBool("Ultimate Explorer");
+		if (ultimate)
+			AddString("Blesser");
+	}
+}
+
 function DecodeCharacterStatistics() {
 	using (ScriptAPI) {
 		StartNode("Character Information");
@@ -37,10 +66,10 @@ function DecodeCharacterStatistics() {
 		AddShort("Dexterity");
 		AddShort("Intelligence");
 		AddShort("Luck");
-		AddShort("Current HP");
-		AddShort("Max HP");
-		AddShort("Current MP");
-		AddShort("Max MP");
+		AddInt("Current HP");
+		AddInt("Max HP");
+		AddInt("Current MP");
+		AddInt("Max MP");
 		AddShort("Available AP");
 
 		/*

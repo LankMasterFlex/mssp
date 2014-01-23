@@ -1,3 +1,6 @@
 using (ScriptAPI) {
-	AddByte("Mode");
+	mode = AddByte("Mode");
+	
+	if (mode == 20)
+	    AddComment("Incorrect Pic");
 }

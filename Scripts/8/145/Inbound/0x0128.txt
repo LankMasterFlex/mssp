@@ -1,0 +1,17 @@
+using (ScriptAPI) {
+	AddShort("");
+	AddLong("");
+	AddLong("");
+	AddLong("Channel ID");
+	AddByte("");
+	AddByte("");
+	AddInt("");
+	AddByte("");
+	AddShort("");
+	
+	for (i=0; i<3; i++)
+	    AddUInt("Damage Seed " + (i + 1));
+	
+	DecodeCharacterData();
+}
+	

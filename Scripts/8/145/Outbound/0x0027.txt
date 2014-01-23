@@ -1,0 +1,6 @@
+using (ScriptAPI) {
+	AddInt("World ID");
+	AddInt("Character ID");
+	AddField("", 18);
+	AddLong("Session ID");
+}
