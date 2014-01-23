@@ -1,0 +1,136 @@
+using (ScriptAPI) {
+	AddInt("ID");
+	AddByte("Level");
+	AddString("Name");
+	AddString("Ultimate Explorer Data");
+	
+	StartNode("Guild");
+	
+	AddString("Name");
+	AddShort("Logo Background ID");
+	AddByte("Logo Background Color ID");
+	AddShort("Logo ID");
+	AddByte("Logo Color ID");
+	
+	EndNode(false);
+	
+	AddBool("");
+	
+	StartNode("Buffs");
+	
+	for (i=1; i <= 12; i++)
+    	mask = AddInt("Buff Mask " + i);
+	
+	StartNode("Buff Values");
+	//next = AddByte("Buff Value");
+	//while (next != 0xFF)
+	    //next = AddByte("Buff Value");
+	
+	//for (i = 0; i < 3; i++)
+	//    AddByte("Buff Value");
+	zeroCount = 0;
+	while (zeroCount < 10) {
+		next = AddByte("Ignore");
+		if (next == 0) {
+		    zeroCount++;
+		}
+		else
+		    zeroCount = 0;
+	}
+	
+	EndNode(false);
+	
+	EndNode(false);
+	
+	magic = AddInt("Ignore");
+	if (magic == 0)
+	    AddField("Ignore", 38);
+	AddByte("Ignore");
+	AddField("Ignore", 30);
+	AddInt("Mount");
+	AddInt("Mount");
+	AddField("Ignore", 61);
+	job = AddShort("Job");
+	AddShort("Subcategory");
+	DecodeCharacterAppearance();
+	if (job == 10112)
+	    DecodeCharacterAppearance();
+	AddInt("Unknown");
+	AddInt("Unknown");
+	AddInt("Valentine");
+	AddInt("Unknown");
+	AddInt("Unknown");
+	AddInt("Unknown");
+	AddInt("Unknown");
+	AddInt("Unknown");
+	AddInt("Title");
+	AddInt("Unknown");
+	AddInt("Unknown");
+	AddInt("Unknown");
+	AddInt("Item Effect");
+	AddInt("Chair");
+	AddInt("Unknown");
+	AddInt("Unknown");
+	StartNode("Position");
+	AddShort("X");
+	AddShort("Y");
+	AddByte("Stance");
+	AddShort("FH");
+	EndNode(false);
+	AddByte("Unknown");
+	AddByte("Unknown");
+	AddByte("Unknown");
+	AddByte("Unknown"); //1
+	AddByte("Unknown");
+	AddInt("Mount Level");
+	AddInt("Mount Exp");
+	AddInt("Mount Fatigue");
+	StartNode("Announce Box");
+	type = AddByte("Type");
+	if (type > 0) {
+		AddInt("Object ID");
+		AddString("Description");
+		AddByte("Omok/Password");
+		AddByte("Size");
+		AddByte("Max Size");
+		if (type > 3)
+		    AddBool("Open");
+	
+	
+	}
+	EndNode(false);
+	
+	StartNode("Chalkboard");
+	chalkboard = AddBool("Chalkboard");
+	if (chalkboard)
+	    AddString("Chalkboard Text");
+	EndNode(false);
+	
+	StartNode("Rings");
+	size1 = AddByte("Rings");
+	for (i = 1; i <= size1; i++)
+	    AddField("Ring" + i, 24);
+	size2 = AddByte("Rings");
+	for (i = 1; i <= size2; i++)
+	    AddField("Ring" + i, 24);
+	size3 = AddByte("Rings");
+	for (i = 1; i <= size3; i++)
+	    AddField("Ring" + i, 16);
+	EndNode(false);
+	
+	AddByte("Berserker");
+	AddInt("Unknown");
+	if (job == 6000 || job >= 6100 && job <= 6112)
+	    AddField("Kaiser Information", 9);
+	AddByte("Unknown");
+	AddInt("Unknown");
+	DecodeFarmInformation();
+	StartNode("Crowns");
+	for (i = 1; i <=5; i++)
+	    AddByte("Crown" + i);
+	EndNode(false);
+	AddInt("Unknown");
+	AddByte("Unknown");
+	AddInt("Unknown");
+	AddInt("Unknown"); // v145.1
+}

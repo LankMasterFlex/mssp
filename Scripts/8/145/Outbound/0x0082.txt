@@ -1,0 +1,9 @@
+using (ScriptAPI) {
+	action = AddByte("Action");
+	
+	if (action == 1) {
+        slot = AddShort("Slot");
+		itemID = AddInt("Item ID");
+	    quantity = AddShort("Quantity");
+	}
+}

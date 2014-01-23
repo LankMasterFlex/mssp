@@ -1,0 +1,69 @@
+using (ScriptAPI) {
+	AddBool("Item Reaction");
+	mask = AddLong("Mask");
+	
+	if (mask == 0)
+	    AddBool("No Update");
+	
+	if ((mask & 0x1) != 0)
+	    AddByte("Skin ID");
+	
+	if ((mask & 0x2) != 0)
+		AddInt("Face ID");
+	
+	if ((mask & 0x4) != 0)
+		AddInt("Hair ID");
+	
+	if ((mask & 0x10) != 0)
+		AddByte("Level");
+	
+	if ((mask & 0x20) != 0)
+		AddShort("Job ID");
+	
+	if ((mask & 0x40) != 0)
+		AddShort("Strength");
+	
+	if ((mask & 0x80) != 0)
+		AddShort("Dexterity");
+	
+	if ((mask & 0x100) != 0)
+	    AddShort("Intelligence");
+	
+	if ((mask & 0x200) != 0)
+	    AddShort("Luck");
+	
+	if ((mask & 0x400) != 0)
+	    AddInt("Current HP");
+	
+	if ((mask & 0x800) != 0)
+	    AddInt("Max HP");
+	
+	if ((mask & 0x1000) != 0)
+	    AddInt("Current MP");
+	
+	if ((mask & 0x2000) != 0)
+	    AddInt("Max MP");
+	
+	if ((mask & 0x4000) != 0)
+	    AddShort("Available AP");
+	
+	if ((mask & 0x8000) != 0)
+	    AddShort("Available SP"); // can also be byte depedning on jbo
+	
+	if ((mask & 0x10000) != 0)
+	    AddLong("Experience");
+	
+	if ((mask & 0x20000) != 0)
+	    AddInt("Fame");
+	
+	if ((mask & 0x40000) != 0)
+	    AddLong("Meso");
+	
+	if ((mask & 0x180008) != 0) {
+		for (j=1; j<=3; j++)
+		    AddLong("Pet " + j + "'s Unique ID");
+    }
+    
+	AddBool("Unknown");
+	AddBool("Unknown");
+}

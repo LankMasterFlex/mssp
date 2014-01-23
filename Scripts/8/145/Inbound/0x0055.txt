@@ -1,0 +1,101 @@
+using (ScriptAPI) {
+	AddInt("ID");
+	AddByte("Level");
+	AddShort("Job");
+	AddShort("Job Category");
+	AddByte("Battle Rank");
+	AddInt("Fame");
+	
+	StartNode("Marriage");
+	
+	married = AddBool("Married");
+	
+	if (married) {
+    	AddInt("Marriage ID");
+		AddInt("Husband Character ID");
+		AddInt("Wife Character ID");
+		AddShort("Message Type");
+		AddInt("Husband Ring ID");
+		AddInt("Wife Ring ID");
+		AddString("Husband Character Name");
+		AddString("Wife Character Name");
+	}
+    
+	EndNode(false);
+	
+	StartNode("Professions");
+	
+    professions = AddByte("Professions Count");
+	
+	for (i=0; i<professions; i++)
+	    AddShort("Profession " + (i + 1));
+	
+	EndNode(false);
+	
+	AddString("Guild Name");
+	AddString("Guild Alliance Name");
+    AddBool("Viewing Self");
+	AddBool("");
+	
+	StartNode("Pets");
+	
+	for (i=1; i != 0; i++) {
+		petIndex = AddByte("Pet Index");
+		
+		if (petIndex == 0)
+		    break;
+		
+		AddInt("Item ID");
+		AddString("Name");
+		AddByte("Level");
+		AddShort("Closeness");
+		AddByte("Fullness");
+		AddShort("");
+		AddInt("Pet Cash Item");
+		AddInt("");
+		AddByte("Continue");
+	}
+	
+	EndNode(false);
+	
+	StartNode("Wishlist");
+	
+	wishlistCount = AddByte("Wishlist Count");
+	
+	for (i=0; i<wishlistCount; i++) {
+    	AddInt("Item ID");
+	}
+
+	EndNode(false);
+	
+	StartNode("Medals");
+	
+	AddInt("Equipped Medal ID");
+	
+	medalsCount = AddShort("Medal Quests Count");
+	
+	for (i=0; i<medalsCount; i++) {
+		AddShort("Medal Quest ID");
+		AddLong("Medal Quest Finished Time");
+	}
+	
+	EndNode(false);
+	
+	for (i=0; i<6; i++)
+	    AddByte("Trait " + i + "'s Level");
+	
+	AddInt("Farm ID");
+	DecodeFarmInformation();
+	
+	AddInt("");
+	AddInt("");
+	
+	StartNode("Chairs");
+	
+	chairsCount = AddInt("Chairs Count");
+
+    for (i=0; i<chairsCount; i++)
+	    AddInt("Chair " + i + "'s Item ID");
+
+    EndNode(false);
+}

@@ -1,4 +1,9 @@
 using (ScriptAPI) {
-	AddByte("");
+	AddByte("Mode");
 	AddInt("");
+	AddInt("");
+	AddString("Portal Name");
+	AddInt("");
+    AddByte("");
+	wheel = AddShort("Wheel");
 }

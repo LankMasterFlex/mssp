@@ -1,0 +1,30 @@
+using (ScriptAPI) {
+    type = AddByte("Type");
+    
+	if (type == 0x03) {
+		StartNode("Megaphone");
+		AddString("Message");
+		AddByte("Channel ID");
+		AddBool("Whisperable");
+		EndNode(false);
+	} else if (type == 4) {
+		AddBool("Contains Message");
+	} else if (type == 0x0D) {
+		StartNode("Cash Shop Surprise");
+		AddString("Message");
+		AddInt("Unknown");
+		AddInt("Item ID");
+		AddString("Gachapon Name");
+		StartNode("Item Information");
+		DecodeItem();
+		EndNode(false);
+	    EndNode(false);
+	} else if (type == 0x17) {
+		StartNode("Envelope");
+		AddShort("Quest ID");
+		AddInt("Time"); 
+		EndNode(false);
+	} else {
+		AddComment("Unknown Message Type");
+	} 
+}

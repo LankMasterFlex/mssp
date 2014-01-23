@@ -1,0 +1,8 @@
+using (ScriptAPI) {
+	AddInt("Character ID");
+	AddBool("Admin");
+	AddString("Message");
+	AddBool("Show");
+	AddBool("Unknown");
+	AddByte("Unknown");
+}

@@ -1,0 +1,14 @@
+using (ScriptAPI) {
+	AddByte("Unknown");
+	AddInt("Npc ID");
+	AddByte("");
+	type = AddByte("Message Type");
+	speaker = AddByte("Speaker");
+	
+	AddString("Message");
+	
+	if (type == 0) {
+	    AddByte("");
+	    AddByte("");
+	}
+}

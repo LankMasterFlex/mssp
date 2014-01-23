@@ -4,7 +4,9 @@ using (ScriptAPI) {
 	AddLong("");
 	AddLong("Channel ID");
 	AddByte("");
-	AddByte("");
+	type = AddByte("");
+	
+	if (type == 1) {
 	AddInt("");
 	AddByte("");
 	AddShort("");
@@ -13,5 +15,16 @@ using (ScriptAPI) {
 	    AddUInt("Damage Seed " + (i + 1));
 	
 	DecodeCharacterData();
+	} else {
+	    AddLong("");
+		AddInt("Map ID");
+		AddByte("Portal ID");
+		AddInt("Current HP");
+		AddShort("");
+		AddLong("Current Date Time (UTC)");
+		AddInt("");
+		AddShort("");
+		AddBool("");
+	} 
 }
 	

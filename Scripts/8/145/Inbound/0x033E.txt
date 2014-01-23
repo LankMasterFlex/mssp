@@ -1,0 +1,57 @@
+using (ScriptAPI) {
+	AddInt("Unknown");
+	AddInt("Shop ID");
+	hasRanks = AddBool("Contains Ranks");
+	itemCount = AddShort("Item Count");
+	
+	StartNode("Items");
+	
+	for (i=1; i<=itemCount; i++) {
+		StartNode("Item " + i);
+		itemID = AddInt("ID");
+		AddInt("Price");
+		AddByte("Discount");
+		AddInt("Required Item");
+		AddInt("Required Item Quantity");
+		AddInt("Expiration");
+		AddInt("Required Level");
+		AddInt("Unknown");
+		AddLong("Default Expiration Time");
+		AddLong("Max Expiration Time");
+		AddInt("Category ID");
+		AddBool("Potentialed");
+		AddInt("Expires");
+		AddBool("Unknown");
+		
+		if (itemID / 10000 == 207 || itemID / 10000 == 233)
+	        AddField("Unknown", 6);
+		//} 
+    	//else {
+		AddShort("Quantity");
+		AddShort("Buyable Amount");	
+		
+		rebuyable = AddBool("Rebuyable");
+		
+		if (rebuyable) {
+			StartNode("Item Information");
+		    DecodeItem();
+			EndNode(false);
+		}
+		
+		StartNode("Red Leaf High");
+		
+		for (j=0; j<4; j++)
+		    AddInt("Unknown");
+		
+		for (j=0; j<4; j++) {
+			AddInt("Red Leaf Information");
+			AddInt("Red Leaf Information");
+		}
+		
+		EndNode(false);
+			
+		EndNode(false);
+	}
+
+    EndNode(false);
+} 
