@@ -1,0 +1,10 @@
+using (ScriptAPI)
+{
+    AddByte("");
+    AddByte("");
+	AddField("GetIPAddr(&addrGame)", 4);
+	AddUShort("GetPort(&addrGame)");
+	AddInt("m_dwCharacterId");
+	AddByte("CAuthentication->bAuthenCode");
+	AddInt("CAuthentication->ulArgument");
+}

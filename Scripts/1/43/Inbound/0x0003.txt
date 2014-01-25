@@ -1,0 +1,78 @@
+using (ScriptAPI)
+{
+	AddByte("result");
+    AddInt("SSN");
+	count = AddByte("GetCount(adwCharacterID)");
+	for (i = 0; i < count; i += 1)
+	{
+		StartNode("AvatarData");
+		StartNode("GW_CharacterStat");
+		AddInt("dwCharacterID");
+		AddPaddedString("sCharacterName", 13);
+		AddByte("nGender");
+		AddByte("nSkin");
+		AddInt("nFace");
+		AddInt("nHair");
+		AddLong("liPetLockerSN");
+		AddByte("nLevel");
+		AddShort("nJob");
+		AddShort("nSTR");
+		AddShort("nDEX");
+		AddShort("nINT");
+		AddShort("nLUK");
+		AddShort("nHP");
+		AddShort("nMHP");
+		AddShort("nMP");
+		AddShort("nMMP");
+		AddShort("nAP");
+		AddShort("nSP");
+		AddInt("nEXP");
+		AddShort("nPOP");
+		//AddInt("nMoney");
+		AddInt("dwPosMap");
+		AddByte("nPortal");
+		EndNode(true);
+		
+		StartNode("AvatarLook");
+		AddByte("nGender");
+        AddByte("nSkin");
+        AddInt("nFace");
+		AddByte("");
+        AddInt("anHairEquip[0]");
+		StartNode("anHairEquip");
+		
+		for (i = 0; i < 30; i += 1 )
+		{
+			i = AddByte("pos");
+			if (i == 255)
+			{
+				break;
+			}
+			AddInt("nItemID");
+		}
+        EndNode(true);
+		StartNode("anUnseenEquip");
+		for (i = 0; i < 30; i += 1 )
+		{
+			i = AddByte("pos");
+			if (i == 255)
+			{
+				break;
+			}
+			AddInt("nItemID");
+		}
+		EndNode(true);
+		EndNode(true);
+		if (AddByte("RANK") > 0)
+        {
+            AddInt("nTotRank");
+            AddInt("nTotRankGap");
+            AddInt("nWorldRank");
+            AddInt("nWorldRankGap");
+		}
+		AddLong("liPetLockerSN");
+		EndNode(true);
+	}
+    AddByte("use SPW");
+    AddByte("CClientSocket + 0xE4");
+}

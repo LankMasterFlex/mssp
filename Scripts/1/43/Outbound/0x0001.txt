@@ -1,0 +1,8 @@
+using (ScriptAPI)
+{
+	AddString("Username");
+	AddString("Password");
+	AddField("machineId", 16);
+	AddInt("GameRoomClient");
+	AddByte("m_nGameStartMode");
+}
