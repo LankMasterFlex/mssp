@@ -1,0 +1,21 @@
+using (ScriptAPI)
+{
+    if (AddByte("m_nWorldId") == 0xFF) break;
+	AddString("m_sName");
+	AddByte("m_nWorldState");
+	AddString("m_sWorldEventDesc");
+	AddShort("m_nEventEXP_WSE");
+	AddShort("m_nEventDrop_WSE");
+	//AddByte("m_nBlockCharCreation");
+	m_nChannelNo = AddByte("m_nChannelNo");
+	for (i = 0; i < m_nChannelNo; i += 1)
+	{
+		StartNode("Channel " + i);
+		AddString("m_sName");
+		AddInt("m_aUserNo.a[i]");
+		AddByte("m_nWorldId");
+		AddByte("i");
+		AddByte("m_aAdultChannel.a[i]");
+		EndNode(false);
+	}
+}

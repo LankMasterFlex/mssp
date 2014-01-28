@@ -1,0 +1,65 @@
+using (ScriptAPI)
+{
+    AddByte("m_bCurFieldKey");
+	AddShort("m_ptCurPos.x");
+	AddShort("m_ptCurPos.y");
+	//CMovePath__Decode
+	count = AddByte("ElemCount");
+	for (i = 0; i < count; i += 1)
+	{
+        StartNode("Element " + i);
+	    nAttr = AddByte("nAttr");
+		if (nAttr == 0 || nAttr == 5)
+		{
+			AddShort("x");
+			AddShort("x");
+			AddShort("vx");
+			AddShort("vy");
+			AddShort("fh");
+			AddByte("bMoveAction");
+			AddShort("tElapse");
+		}
+		else if (nAttr == 1 || nAttr == 2 || nAttr == 6 || nAttr == 0x0C)
+		{
+			AddShort("vx");
+			AddShort("vy");
+			AddByte("bMoveAction");
+			AddShort("tElapse");
+		}
+		else if (nAttr == 3 || nAttr == 4 || nAttr == 7 || nAttr == 8 || nAttr == 9 || nAttr == 0x0B)
+		{
+			AddShort("vx");
+			AddShort("vy");
+			AddShort("fh");
+			AddByte("bMoveAction");
+			AddShort("tElapse");
+		}
+		else if (nAttr == 0x0A)
+		{
+			AddByte("bStat");
+		}
+		EndNode(true);
+	}
+    StartNode("black magic");
+	v1 = AddByte("v1");
+	v2 = 0;
+	v3 = 4;
+	if (v1 > 0)
+	{
+		//while (v2 < v1)
+	    //{
+		//    if ((v2 % 2) > 0)
+		//	 v3 = (v3 >> 4);
+	    //    else
+		//	 v3 = AddByte("v3");	
+        //    e = v3 & 0xF;
+		//    AddField(e, 4);
+		//    v2 += 1;
+		//}
+	}
+    EndNode(false);
+	AddShort("m_rcMove.left");
+	AddShort("m_rcMove.top");
+	AddShort("m_rcMove.right");
+	AddShort("m_rcMove.bottom");
+}

@@ -1,0 +1,14 @@
+using (ScriptAPI)
+{
+	result = AddByte("Result");
+	if (result == 0)
+	{
+		AddInt("m_dwAccountId");
+		AddByte("m_nGender");
+		AddByte("m_nGradeCode");
+		AddString("m_sNexonClubID");
+		AddByte("m_nChatBlockReason");
+		AddLong("m_dtChatUnblockDate");
+		AddLong("m_dtRegisterDate");
+	}
+}
